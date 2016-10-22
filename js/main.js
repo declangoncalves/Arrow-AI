@@ -64,7 +64,7 @@ function countSingleTaps() {
                             "Inputs": {
                                 "input1": { 
                                     "ColumnNames": ["TAPS", "INT", "STDEV", "HAS?"],
-                                    "Values": [singleTapCount, parseInt(avg), parseInt(stdev), "FALSE"]
+                                    "Values": [[singleTapCount, parseInt(avg), parseInt(stdev), "FALSE"]]
                                 },        
                             },
                             "GlobalParameters": {}
