@@ -51,32 +51,35 @@ function countSingleTaps() {
                         data =  {
                             "Inputs": {
                                 "input1": { 
-                                    "ColumnNames": ["COUNT", "AVG", "STDEV"],
-                                    "Values": [singleTapCount, avg, stdev]
+                                    "ColumnNames": ["count", "avg", "variant", "has"],
+                                    "Values": [singleTapCount, avg, stdev, "FALSE"]
                                 },        
                             },
                             "GlobalParameters": {}
                         }
 
                         var jsonString = JSON.stringify(data);
-                        var url = 'https://ussouthcentral.services.azureml.net/workspaces/17a78a4991f6486bb00235017a0ce7ce/services/1c2cf0b12d654a1b9ddbd485a655370e/execute?api-version=2.0&details=true'
-                        var api_key = 'JKBsZ/0MFFN6xBiDtt0RpGlcr0FKfQOanMSw5cP17REy0rPSkoDigjplV+CVWfbJGuLC0aPf7r7KBH0qxX+pZw==' 
+                        messages = jsonString;
+                        var url = 'https://ussouthcentral.services.azureml.net/workspaces/17a78a4991f6486bb00235017a0ce7ce/services/eee5dc459eb241d49db7cb8248ad14e1/execute?api-version=2.0&details=true'
+                        var api_key = '856o3Y+Yo+F8T8yhpLPHdN/uWPy6HfrqxBNNnIJjLQu5UB5Re8uQG2Rk6p8Hp7BrJjP8YDXr94c0KQ0a/F/HDQ==' 
                         var header1 = ['Content-Type', 'Authorization']
                         var header2 = ['application/json', ('Bearer '+ api_key)]
 
                         var http = new XMLHttpRequest();
+
+                        http.onload = function () {
+                            var status = request.status;
+                            var data = request.responseTest;
+                        }
+
                         http.open("POST", url, true);
 
                         //Send the proper header information along with the request
                         http.setRequestHeader(header1[0], header2[0]);
                         http.setRequestHeader(header1[1], header2[1]);
 
-                        http.onreadystatechange = function() {//Call a function when the state changes.
-                            if( http.readyState == 4 && http.status == 200) {
-                                alert(http.responseText);
-                            }
-                        }
-                            http.send();
+                        http.send(jsonString);
+                        
                         dataArray = [singleTapCount, avg, stdev];
 
                         // Update the UI
