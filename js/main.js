@@ -1,5 +1,7 @@
 var dataArray = [];
 
+ var requested =  false; 
+
 var singleTapCount = 0;
 var messages = "";
 var controllerOptions = {enableGestures: false};
@@ -21,9 +23,11 @@ var leftTapped = false;
 var expectedDirection = 1; //1 is right and -1 is right, it will be inverted with every tap
 
 
+
 function countSingleTaps() {
     startTime = null; 
-    Leap.loop(controllerOptions, function(frame) {
+    requested= false; 
+    var controller = Leap.loop(controllerOptions, function(frame) {
 
 
         if ( startTime != null && time > 0) {
@@ -54,12 +58,12 @@ function countSingleTaps() {
                         for (var i = 0; i < intervals.length; i++) {
                                 sum += intervals[i];
                         }
-                        var avg = sum/intervals.length;
+                        var avg = sum/intervals.length/1000;
                         var stdev = 0
                         for (var i = 0; i < intervals.length; i++) {
                             stdev += Math.pow((intervals[i] - avg),2);
                         }
-                        stdev = Math.sqrt(stdev / intervals.length)
+                        stdev = Math.sqrt(stdev / intervals.length)/1000;
                         var data =  {
                             "Inputs": {
                                 "input1": { 
@@ -70,8 +74,10 @@ function countSingleTaps() {
                             "GlobalParameters": {}
                         }
 
+                       
+
                         var jsonString = JSON.stringify(data);
-                        messages = jsonString;
+                       
                         var url = 'https://ussouthcentral.services.azureml.net/workspaces/17a78a4991f6486bb00235017a0ce7ce/services/eee5dc459eb241d49db7cb8248ad14e1/execute?api-version=2.0&details=true'
                         var api_key = '856o3Y+Yo+F8T8yhpLPHdN/uWPy6HfrqxBNNnIJjLQu5UB5Re8uQG2Rk6p8Hp7BrJjP8YDXr94c0KQ0a/F/HDQ==' 
                         var header1 = ['Content-Type', 'Authorization']
@@ -81,8 +87,12 @@ function countSingleTaps() {
 
                         http.onload = function () {
                             var status = http.status;
-                            var data = http.responseTest;
-                            alert("Status: " + status + ". Response: " + data);
+                            var data = http.responseText;
+                           
+
+                            console.log(data);
+                            http.abort();
+                            controller.disconnect();
                         }
 
                         http.open("POST", url, true);
@@ -91,13 +101,16 @@ function countSingleTaps() {
                         http.setRequestHeader("Content-Type", "application/json");
                         http.setRequestHeader("Authorization", 'Bearer ' + api_key);
 
-                        http.send(jsonString);
+                        if (requested == false) {
+                            http.send(jsonString);
+                            requested = true;
+                        }
+                        
                         
                         dataArray = [singleTapCount, avg, stdev];
 
                         // Update the UI
                         updateUI();
-                        return;
                     }
 
                     //Get the instance of the hand then the index finger
@@ -124,12 +137,10 @@ function countSingleTaps() {
                 messages = "This test needs to be done with the right hand. Please remove your left hand and use your right hand."
             } 
         }
-
         // Update the UI
         updateUI();
-
     });
-};
+}
 
 function updateUI() {
     document.querySelector('.results').innerHTML = singleTapCount;
