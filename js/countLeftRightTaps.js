@@ -35,7 +35,7 @@ function countLeftRightTaps() {
                     }
                     // Once 15 seconds have passed, return the counts and the intervals
                     if (frame.timestamp - startTime >= 15000000) {
-                        //Code to send the data to the server
+                        console.log('Taps: ' + LRTapCount);
                     }
 
                     //Get the instance of the hand then the index finger
@@ -51,6 +51,7 @@ function countLeftRightTaps() {
                         leftZone = false;
                     }
 
+                    //If they are supposed to be in the right side, then monitor for taps
                     if (expectedDirection == 1 && rightZone && rightExited == false ) {
                         if (fingerPosition[1]  < 100) {
                             fingerDown = true;
@@ -66,6 +67,36 @@ function countLeftRightTaps() {
                                 lastTap = frame.timestamp;
                             }
                         }
+                    //If they are supposed to be on the left side, then monitor for taps
+                    } else if (expectedDirection == -1 && leftZone && leftExited == false) {
+                        if (fingerPosition[1]  < 100) {
+                            fingerDown = true;
+                        } else if (fingerPosition[1]  > 100 && fingerDown == true) {
+                            LRTapCount += 1;
+                            fingerDown = false;
+                            expectedDirection *= -1; 
+                            if (LRTapCount > 1) {
+                                var intervalC = frame.timestamp - lastTap;
+                                intervals.push(intervalC);
+                                lastTap = frame.timestamp;
+                            } else {
+                                lastTap = frame.timestamp;
+                            }
+                        }
+                    //If they enter the right side after they left the right side, warn them
+                    } else if (expectedDirection == -1 && rightZone && rightExited == true) {
+                        messages = "Taps need to alternate sides. Please tap on the left side"
+                    //If they enter the left side after they left the left side, warn them
+                    } else if (expectedDirection == 1 && leftZone && leftExited == true) {
+                        messages = "Taps need to alterante sides. Please tap on the right side"
+                    //When they leave from the right side, make sure to note they left the right
+                    } else if (rightZone == false && leftZone == false && expectedDirection == -1) {
+                        rightExited = true;
+                        leftExited = false; 
+                    //When they leave the left side, make sure to note that they left the left side
+                    } else if (ightZone == false && leftZone == false && expectedDirection == 1) {
+                        rightExited = false;
+                        leftExited = true; 
                     }
                 }
             }
