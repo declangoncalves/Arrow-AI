@@ -294,7 +294,7 @@ function countHandTurns() {
 
                 // When waiting for the fist, look for normal vector facing down and closed fist
                 if (expectedPosition == positionEnum.FIST) {
-                    if (hand.palmNormal[1] < -0.95 && hand.grabStrength == 1) {
+                    if (hand.palmNormal[1] < -0.94 && hand.grabStrength == 1) {
                         expectedPosition == positionEnum.palmNormal;
                         if (lastPositon != null) {
                             var intervalC = frame.timestamp - lastTap;
