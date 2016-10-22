@@ -1,3 +1,5 @@
+
+
 function countTheHandTurns() {
    startTime = null; 
    var lastPositon = null;
@@ -12,6 +14,7 @@ function countTheHandTurns() {
        HAND: "open hand facing down",
        PALM: "open hand facing up"
    };
+
    var expectedPosition = positionEnum.FIST;
 
     Leap.loop(controllerOptions, function(frame) {
@@ -96,11 +99,12 @@ function countTheHandTurns() {
                         // Update the UI
                         updateUI();
                 }
-
+                console.log(expectedPosition);
                 // When waiting for the fist, look for normal vector facing down and closed fist
                 if (expectedPosition == positionEnum.FIST) {
-                    if (hand.palmNormal[1] < -0.94 && hand.grabStrength == 1) {
-                        expectedPosition == positionEnum.palmNormal;
+                    if (hand.palmNormal[1] < -0.90 && hand.grabStrength == 1) {
+                        expectedPosition == positionEnum.HAND
+                        console.log("Fist seen");
                         if (lastPositon != null) {
                             var intervalC = frame.timestamp - lastTap;
                             FHPIntervals.push(intervalC);
@@ -113,7 +117,8 @@ function countTheHandTurns() {
                     }
                 //When waiting for palm down, look for normal down and fist open
                 } else if (expectedPosition == positionEnum.HAND) {
-                    if (hand.palmNormal[1] < -0.95 && hand.grabStrength == 0) {
+                    if (hand.palmNormal[1] < -0.90 && hand.grabStrength == 0) {
+                        console.log("Hand seen");
                         expectedPosition == positionEnum.PALM;
                         if (lastPositon != null) {
                             var intervalC = frame.timestamp - lastTap;
@@ -127,7 +132,8 @@ function countTheHandTurns() {
                     }
                 //When waitng for plam up, look for normal up, and fist open
                 } else if (expectedPosition == positionEnum.PALM) {
-                    if (hand.palmNormal > 0.95 && hand.grabStrength == 0) {
+                    if (hand.palmNormal > 0.90 && hand.grabStrength == 0) {
+                        console.log("Palm seen");
                         expectedPosition = positionEnum.FIST;
                         FHPCycleCount += 1;
                         if (lastPositon != null) {
