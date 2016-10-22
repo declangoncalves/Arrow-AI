@@ -51,7 +51,7 @@ function countSingleTaps() {
                         data =  {
                             "Inputs": {
                                 "input1": { 
-                                    "ColumnNames": ["count", "avg", "variant", "has"],
+                                    "ColumnNames": ["count", "avg", "variant", "has?"],
                                     "Values": [singleTapCount, avg, stdev, "FALSE"]
                                 },        
                             },
@@ -94,9 +94,9 @@ function countSingleTaps() {
 
                     //When the finger goes down, mark it as down and then when it comes back up, increase the tap count
                     //and then note the interval to the last tap if there has been more than one tap
-                    if (fingerPosition[1]  < 125) {
+                    if (fingerPosition[1]  < 100) {
                         fingerDown = true;
-                    } else if (fingerPosition[1]  > 125 && fingerDown == true) {
+                    } else if (fingerPosition[1]  > 100 && fingerDown == true) {
                         singleTapCount += 1;
                         fingerDown = false;
                         if (singleTapCount > 1) {
