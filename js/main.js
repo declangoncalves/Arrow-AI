@@ -36,16 +36,16 @@ function countSingleTaps() {
                                 sum += intervals[i];
                         }
                         var avg = sum/intervals.length;
-                        var variance = 0
+                        var stdev = 0
                         for (var i = 0; i < intervals.length; i++) {
-                            variance += Math.pow((intervals[i] - avg),2);
+                            stdev += Math.pow((intervals[i] - avg),2);
                         }
-                        variance = variance / intervals.length
+                        stdev = Math.sqrt(stdev / intervals.length)
                         data =  {
                             "Inputs": {
                                 "input1": { 
-                                    "ColumnNames": ["COUNT", "AVG", "VAR"],
-                                    "Values": [singleTapCount, avg, variance]
+                                    "ColumnNames": ["COUNT", "AVG", "STDEV"],
+                                    "Values": [singleTapCount, avg, stdev]
                                 },        
                             },
                             "GlobalParameters": {}
@@ -61,7 +61,8 @@ function countSingleTaps() {
                         http.open("POST", url, true);
 
                         //Send the proper header information along with the request
-                        http.setRequestHeader(header1, header2);
+                        http.setRequestHeader(header1[0], header2[0]);
+                        http.setRequestHeader(header1[1], header2[1]);
 
                         http.onreadystatechange = function() {//Call a function when the state changes.
                             if( http.readyState == 4 && http.status == 200) {
@@ -69,7 +70,7 @@ function countSingleTaps() {
                             }
                         }
                             http.send();
-                        dataArray = [singleTapCount, avg, variance];
+                        dataArray = [singleTapCount, avg, stdev];
 
                         // Update the UI
                         updateUI();
@@ -87,6 +88,7 @@ function countSingleTaps() {
                         fingerDown = true;
                     } else if (fingerPosition[1]  > 125 && fingerDown == true) {
                         singleTapCount += 1;
+                        messages = "Tap Detected!"
                         fingerDown = false;
                         if (singleTapCount > 1) {
                             var intervalC = frame.timestamp - lastTap;
