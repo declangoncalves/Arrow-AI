@@ -60,7 +60,7 @@ function countSingleTaps() {
                             stdev += Math.pow((intervals[i] - avg),2);
                         }
                         stdev = Math.sqrt(stdev / intervals.length)
-                        data =  {
+                        var data =  {
                             "Inputs": {
                                 "input1": { 
                                     "ColumnNames": ["TAPS", "INT", "STDEV", "HAS?"],
@@ -88,10 +88,10 @@ function countSingleTaps() {
                         http.open("POST", url, true);
 
                         //Send the proper header information along with the request
-                        http.setRequestHeader(header1[0], header2[0]);
-                        http.setRequestHeader(header1[1], header2[1]);
+                        http.setRequestHeader("Content-Type", "application/json");
+                        http.setRequestHeader("Authorization", 'Bearer ' + api_key);
 
-                        http.send(jsonString);
+                        http.send(data);
                         
                         dataArray = [singleTapCount, avg, stdev];
 
