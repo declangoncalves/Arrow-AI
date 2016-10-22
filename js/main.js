@@ -1,5 +1,8 @@
 var dataArray = [];
 
+var instructions = "Please move your hand over the leap motion sensor...";
+var time = 15;
+
  var requested =  false; 
 
 var singleTapCount = 0;
@@ -7,7 +10,6 @@ var messages = "";
 var controllerOptions = {enableGestures: false};
 var startTime;
 var intervals = [];
-var time = 15;
 
 var fingerDown = false;
 var lastTap = 0; 
@@ -30,9 +32,8 @@ function countSingleTaps() {
     requested= false; 
     var controller = Leap.loop(controllerOptions, function(frame) {
 
-
         if ( startTime != null && time > 0) {
-            time = 15 - Math.floor((frame.timestamp - startTime)/1000000);
+            time = 18 - Math.floor((frame.timestamp - startTime)/1000000);
         }
 
         //Make sure that hands are visible before the timer starts
@@ -52,9 +53,11 @@ function countSingleTaps() {
                     //If the start time is not set, start it
                     if (startTime == null) {
                         startTime = frame.timestamp;
+                        instructions = "Get Ready...";
+                        countdown();
                     }
                     // Once 15 seconds have passed, return the counts and the intervals
-                    if (frame.timestamp - startTime >= 15000000) {
+                    if (frame.timestamp - startTime >= 18000000) {
                         var sum = 0;
                         for (var i = 0; i < intervals.length; i++) {
                                 sum += intervals[i];
@@ -144,10 +147,28 @@ function countSingleTaps() {
 }
 
 function updateUI() {
+    document.querySelector('.instructions').innerHTML = instructions;
     document.querySelector('.results').innerHTML = singleTapCount;
     document.querySelector('.messages').innerHTML = messages;
     document.querySelector('.data').innerHTML = dataArray;
     document.querySelector('.time').innerHTML = time;
+}
+
+function countdown(){
+    var counter = 3;
+    var interval = setInterval(function() {
+    document.querySelector('.countdown').innerHTML = counter;
+        counter--;
+        console.log(counter);
+        // Display 'counter' wherever you want to display it.
+        if (counter == 0) {
+            // Display a login box     
+            document.querySelector('.countdown').innerHTML = counter;
+            clearInterval(interval);
+            document.getElementById("test1").style.display="block";
+            return;
+        }
+    }, 1000);
 }
 
 function countLeftRightTaps() {
@@ -175,6 +196,7 @@ function countLeftRightTaps() {
                     //If the start time is not set, start it
                     if (startTime == null) {
                         startTime = frame.timestamp;
+                        instructions = "Get Ready...";
                     }
                     // Once 15 seconds have passed, return the counts and the intervals
                     if (frame.timestamp - startTime >= 15000000) {

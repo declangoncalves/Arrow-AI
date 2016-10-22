@@ -1,16 +1,19 @@
 .main-body {
     width: 100%;
     height: 100vh;
-}
-
-body {
+	color: #fff;
 	background-color: #182327;
-	color: 009999;
 }
 
-h1 {
-	font-size: 80px;
-	letter-spacing: 0.3em;
-	font-weight: 400;
-	color: #e2e2e2;
+.main-title {
+	margin-bottom: 42px;
+}
+
+.main-title h1 {
+	letter-spacing: 2px !Important;
+    font-size: 62px !Important;
+}
+
+#test1 {
+	display: none;
 }

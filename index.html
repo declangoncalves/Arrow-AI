@@ -28,7 +28,7 @@
 
 </head>
 
-<body class="main-body">
+<body class="main-body" onload="countSingleTaps();">
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -67,9 +67,16 @@
 
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h1>HuntingTrac</h1>
-                <div id="main">
-                    <button onclick="countSingleTaps()">Press me!</button>
+                <div class="main-title">
+                    <h1>HuntingTrak</h1>
+                    <hr >
+                </div>
+
+
+                <h2 class="instructions"></h2>
+                <h2 class="countdown"></h2>
+
+                <div id="test1">
                     <div class="results"></div>
                     <div class="messages"></div>
                     <div class="data"></div>
