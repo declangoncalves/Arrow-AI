@@ -5,12 +5,19 @@ var messages = "";
 var controllerOptions = {enableGestures: false};
 var startTime;
 var intervals = [];
+var time = 15;
 
 var fingerDown = false;
 var lastTap = 0; 
 
 function countSingleTaps() {
     Leap.loop(controllerOptions, function(frame) {
+
+
+        if ( startTime != null && time > 0) {
+            time = 15 - Math.floor((frame.timestamp - startTime)/1000000);
+        }
+
         //Make sure that hands are visible before the timer starts
         if (frame.hands.length == 0) {
             messages = "No hands are visible. Please make sure your right hands is over the sensor";
@@ -88,7 +95,6 @@ function countSingleTaps() {
                         fingerDown = true;
                     } else if (fingerPosition[1]  > 125 && fingerDown == true) {
                         singleTapCount += 1;
-                        messages = "Tap Detected!"
                         fingerDown = false;
                         if (singleTapCount > 1) {
                             var intervalC = frame.timestamp - lastTap;
@@ -114,4 +120,5 @@ function updateUI() {
     document.querySelector('.results').innerHTML = singleTapCount;
     document.querySelector('.messages').innerHTML = messages;
     document.querySelector('.data').innerHTML = dataArray;
+    document.querySelector('.time').innerHTML = time;
 }
