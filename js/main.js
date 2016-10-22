@@ -302,7 +302,7 @@ function countHandTurns() {
                             lastPositon = frame.timestamp;
                         }
                     } else {
-                        messages = "Waiting for fist";
+                        messages = "Waiting for fist. Position: " + hand.palmNormal[1] + " Grip: " + hand.grabStrength;
                     }
                 //When waiting for palm down, look for normal down and fist open
                 } else if (expectedPosition == positionEnum.HAND) {
@@ -316,7 +316,7 @@ function countHandTurns() {
                             lastPositon = frame.timestamp;
                         }
                     } else {
-                        messages = "Waiting for open hand down";
+                        messages = "Waiting for open hand down. Position: " + hand.palmNormal[1] + " Grip: " + hand.grabStrength;
                     }
                 //When waitng for plam up, look for normal up, and fist open
                 } else if (expectedPosition == positionEnum.PALM) {
@@ -331,7 +331,7 @@ function countHandTurns() {
                             lastPositon = frame.timestamp;
                         }
                     } else {
-                        messages = "Waiting for palm up";
+                        messages = "Waiting for palm up. Position: " + hand.palmNormal[1] + " Grip: " + hand.grabStrength;
                     }
                 }
             }
