@@ -70,6 +70,7 @@ function countSingleTaps() {
                         http.onload = function () {
                             var status = request.status;
                             var data = request.responseTest;
+                            alert("Status: " + status + ". Response: " + data);
                         }
 
                         http.open("POST", url, true);
