@@ -115,17 +115,19 @@ function updateUI() {
 }
 
 function countdown(){
-    var counter = 3;
+    var counter = 3;     
+    document.querySelector('#countdown').innerHTML = counter;
     var interval = setInterval(function() {
-    document.querySelector('.countdown').innerHTML = counter;
         counter--;
+        document.querySelector('#countdown').innerHTML = counter;
         console.log(counter);
         // Display 'counter' wherever you want to display it.
         if (counter == 0) {
             // Display a login box     
-            document.querySelector('.countdown').innerHTML = counter;
+            document.querySelector('#countdown').innerHTML = counter;
             clearInterval(interval);
             document.getElementById("test1").style.display="block";
+            document.getElementById("countdown").style.display="none";
             return;
         }
     }, 1000);
