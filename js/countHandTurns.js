@@ -1,7 +1,12 @@
 function countTheHandTurns() {
    startTime = null; 
    var lastPositon = null;
+    currentTest = 2;
+    instructions = "Test2";
+    time = 0;
    
+    updateUI();
+
    positionEnum =  {
        FIST: "fist with the knuckles facing up",
        HAND: "open hand facing down",
@@ -29,9 +34,8 @@ function countTheHandTurns() {
                 //If the start time is not set, start it
                 if (startTime == null) {
                     startTime = frame.timestamp;
-                        time = 0;
-                        instructions = "Get Ready...";
-                        countdown();
+                    instructions = "Get Ready...";
+                    countdown();
                 }
                 // Once 15 seconds have passed, return the counts and the intervals
                 if (frame.timestamp - startTime >= 15000000) {

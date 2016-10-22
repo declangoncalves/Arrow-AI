@@ -1,5 +1,11 @@
 function countLeftRightTaps() {
-    startTime = null; 
+    startTime = null;
+    currentTest = 3;
+    instructions = "Test3";
+    time = 0;
+   
+    updateUI();
+
     Leap.loop(controllerOptions, function(frame) {
 
 

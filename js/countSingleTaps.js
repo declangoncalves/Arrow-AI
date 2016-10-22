@@ -44,7 +44,6 @@ function countSingleTaps() {
                         STSTDEV = parseInt(stdev);
 
                         updateUI();
-                        currentTest = 2;
 
                         controller.disconnect();
                     }
