@@ -80,8 +80,8 @@ function countSingleTaps() {
                         var http = new XMLHttpRequest();
 
                         http.onload = function () {
-                            var status = request.status;
-                            var data = request.responseTest;
+                            var status = http.status;
+                            var data = http.responseTest;
                             alert("Status: " + status + ". Response: " + data);
                         }
 
