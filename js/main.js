@@ -22,7 +22,8 @@ var leftExited = false;
 var leftTapped = false;
 var expectedDirection = 1; //1 is right and -1 is right, it will be inverted with every tap
 
-
+var FHPCycleCount = 0;
+var FHPIntervals = [];
 
 function countSingleTaps() {
     startTime = null; 
@@ -77,7 +78,7 @@ function countSingleTaps() {
                        
 
                         var jsonString = JSON.stringify(data);
-                       
+                       console.log(jsonString);
                         var url = 'https://ussouthcentral.services.azureml.net/workspaces/17a78a4991f6486bb00235017a0ce7ce/services/eee5dc459eb241d49db7cb8248ad14e1/execute?api-version=2.0&details=true'
                         var api_key = '856o3Y+Yo+F8T8yhpLPHdN/uWPy6HfrqxBNNnIJjLQu5UB5Re8uQG2Rk6p8Hp7BrJjP8YDXr94c0KQ0a/F/HDQ==' 
                         var header1 = ['Content-Type', 'Authorization']
@@ -213,4 +214,145 @@ function countLeftRightTaps() {
             }
         }
     });
+}
+
+function countHandTurns() {
+   startTime = null; 
+   var lastPositon = null;
+   
+   positionEnum =  {
+       FIST: "fist with the knuckles facing up",
+       HAND: "open hand facing down",
+       PALM: "open hand facing up"
+   };
+   var expectedPosition = positionEnum.FIST;
+
+    Leap.loop(controllerOptions, function(frame) {
+
+
+        if ( startTime != null && time > 0) {
+            time = 15 - Math.floor((frame.timestamp - startTime)/1000000);
+        }
+
+        //Make sure that hands are visible before the timer starts
+        if (frame.hands.length == 0) {
+            messages = "No hands are visible. Please make sure your right hands is over the sensor";
+        //Make sure that both hands are not in view
+        } else if (frame.hands.length == 2) {
+            messages = "You have placed both your hands over the sensor, please remove your left hands"; 
+        } else {
+            var hand = frame.hands[0];
+            //Ensure that patient is using their right hand
+            if (hand.type == "right") { 
+                //If the start time is not set, start it
+                if (startTime == null) {
+                    startTime = frame.timestamp;
+                }
+                // Once 15 seconds have passed, return the counts and the intervals
+                if (frame.timestamp - startTime >= 15000000) {
+                     var sum = 0;
+                        for (var i = 0; i < FHPIntervals.length; i++) {
+                                sum += FHPIntervals[i];
+                        }
+                        var avg = sum/FHPIntervals.length/1000;
+                        var stdev = 0
+                        for (var i = 0; i < FHPIntervals.length; i++) {
+                            stdev += Math.pow((FHPIntervals[i] - avg),2);
+                        }
+                        stdev = Math.sqrt(stdev / FHPIntervals.length)/1000;
+                        var data =  {
+                            "Inputs": {
+                                "input1": { 
+                                    "ColumnNames": ["CYCLES", "INT", "STDEV", "HAS?"],
+                                    "Values": [[FHPCycleCount, parseInt(avg), parseInt(stdev), "FALSE"]]
+                                },        
+                            },
+                            "GlobalParameters": {}
+                        }
+
+                       
+
+                        var jsonString = JSON.stringify(data);
+                       console.log(jsonString);
+                        var url = 'https://ussouthcentral.services.azureml.net/workspaces/17a78a4991f6486bb00235017a0ce7ce/services/eee5dc459eb241d49db7cb8248ad14e1/execute?api-version=2.0&details=true'
+                        var api_key = '856o3Y+Yo+F8T8yhpLPHdN/uWPy6HfrqxBNNnIJjLQu5UB5Re8uQG2Rk6p8Hp7BrJjP8YDXr94c0KQ0a/F/HDQ==' 
+                        var header1 = ['Content-Type', 'Authorization']
+                        var header2 = ['application/json', ('Bearer '+ api_key)]
+
+                        var http = new XMLHttpRequest();
+
+                        http.onload = function () {
+                            var status = http.status;
+                            var data = http.responseText;
+                           
+                            console.log(data);
+                            http.abort();
+                            controller.disconnect();
+                        }
+
+                        http.open("POST", url, true);
+
+                        //Send the proper header information along with the request
+                        http.setRequestHeader("Content-Type", "application/json");
+                        http.setRequestHeader("Authorization", 'Bearer ' + api_key);
+
+                        if (requested == false) {
+                            http.send(jsonString);
+                            requested = true;
+                        }
+                        
+                        
+                        dataArray = [singleTapCount, avg, stdev];
+
+                        // Update the UI
+                        updateUI();
+                }
+
+                // When waiting for the fist, look for normal vector facing down and closed fist
+                if (expectedPosition == positionEnum.FIST) {
+                    if (hand.palmNormal[1] < -0.95 && hand.grabStrength == 1) {
+                        expectedPosition == positionEnum.palmNormal;
+                        if (lastPositon != null) {
+                            var intervalC = frame.timestamp - lastTap;
+                            FHPIntervals.push(intervalC);
+                            lastPositon = frame.timestamp;
+                        } else {
+                            lastPositon = frame.timestamp;
+                        }
+                    } else {
+                        messages = "Waiting for fist";
+                    }
+                //When waiting for palm down, look for normal down and fist open
+                } else if (expectedPosition == positionEnum.HAND) {
+                    if (hand.palmNormal[1] < -0.95 && hand.grabStrength == 0) {
+                        expectedPosition == positionEnum.PALM;
+                        if (lastPositon != null) {
+                            var intervalC = frame.timestamp - lastTap;
+                            FHPIntervals.push(intervalC);
+                            lastPositon = frame.timestamp;
+                        } else {
+                            lastPositon = frame.timestamp;
+                        }
+                    } else {
+                        messages = "Waiting for open hand down";
+                    }
+                //When waitng for plam up, look for normal up, and fist open
+                } else if (expectedPosition == positionEnum.PALM) {
+                    if (hand.palmNormal > 0.95 && hand.grabStrength == 0) {
+                        expectedPosition = positionEnum.FIST;
+                        FHPCycleCount += 1;
+                        if (lastPositon != null) {
+                            var intervalC = frame.timestamp - lastTap;
+                            FHPIntervals.push(intervalC);
+                            lastPositon = frame.timestamp;
+                        } else {
+                            lastPositon = frame.timestamp;
+                        }
+                    } else {
+                        messages = "Waiting for palm up";
+                    }
+                }
+            }
+        }
+    }); 
 }
