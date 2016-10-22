@@ -40,7 +40,7 @@ function countSingleTaps() {
                         for (var i = 0; i < intervals.length; i++) {
                             variance += Math.pow((intervals[i] - avg),2);
                         }
-                        variance /= intervals.length;
+                        variance = variance / intervals.length
                         data =  {
                             "Inputs": {
                                 "input1": { 
