@@ -91,7 +91,7 @@ function countSingleTaps() {
                         http.setRequestHeader("Content-Type", "application/json");
                         http.setRequestHeader("Authorization", 'Bearer ' + api_key);
 
-                        http.send(data);
+                        http.send(jsonString);
                         
                         dataArray = [singleTapCount, avg, stdev];
 
