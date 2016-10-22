@@ -63,7 +63,7 @@ function countSingleTaps() {
                         data =  {
                             "Inputs": {
                                 "input1": { 
-                                    "ColumnNames": ["taps", "int", "stdev", "has?"],
+                                    "ColumnNames": ["TAPS", "INT", "STDEV", "HAS?"],
                                     "Values": [singleTapCount, avg, stdev, "FALSE"]
                                 },        
                             },
