@@ -2,6 +2,7 @@ var dataArray = [];
 
 var instructions = "Please move your hand over the leap motion sensor...";
 var time = 15;
+var currentTest = 1;
 
  var requested =  false; 
 
@@ -75,6 +76,9 @@ function countSingleTaps() {
                         STSTDEV = parseInt(stdev);
 
                         updateUI();
+                        currentTest = 2;
+
+                        controller.disconnect();
                     }
 
                     //Get the instance of the hand then the index finger
@@ -126,8 +130,21 @@ function countdown(){
             // Display a login box     
             document.querySelector('#countdown').innerHTML = counter;
             clearInterval(interval);
-            document.getElementById("test1").style.display="block";
             document.getElementById("countdown").style.display="none";
+
+            if (currentTest == 1)
+                document.getElementById("test1").style.display="block";
+                document.getElementById("test2").style.display="none";
+                document.getElementById("test3").style.display="none";
+            if (currentTest == 2)
+                document.getElementById("test1").style.display="none";
+                document.getElementById("test2").style.display="block";
+                document.getElementById("test3").style.display="none";
+            if (currentTest == 3)
+                document.getElementById("test1").style.display="none";
+                document.getElementById("test2").style.display="none";
+                document.getElementById("test3").style.display="block";
+
             return;
         }
     }, 1000);
@@ -158,7 +175,9 @@ function countLeftRightTaps() {
                     //If the start time is not set, start it
                     if (startTime == null) {
                         startTime = frame.timestamp;
+                        time = 0;
                         instructions = "Get Ready...";
+                        countdown();
                     }
                     // Once 15 seconds have passed, return the counts and the intervals
                     if (frame.timestamp - startTime >= 15000000) {
