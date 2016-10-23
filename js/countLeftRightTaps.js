@@ -103,11 +103,11 @@ function countLeftRightTaps() {
                     var indexFinger = hand.indexFinger;
                     var fingerVelocity = indexFinger.tipVelocity;
 
-                    if (movingLeft == false && movingRight == false && fingerVelocity[0] > 0)  {
+                    if (movingLeft == false && movingRight == false && fingerVelocity[0] > 30)  {
                         movingRight = true
-                    } else if (movingLeft == false && movingRight == false && fingerVelocity[0] < 0)  {
+                    } else if (movingLeft == false && movingRight == false && fingerVelocity[0] < -30)  {
                         movingleft = true
-                    } else if (movingLeft && fingerVelocity[0] > 0) {
+                    } else if (movingLeft && fingerVelocity[0] > 30) {
                         LRTapCount += 1
                         movingLeft = false
                         movingRight = true
@@ -119,7 +119,7 @@ function countLeftRightTaps() {
                         } else {
                             lastTap = frame.timestamp
                         }
-                    } else if (movingRight && fingerVelocity[0] < 0) {
+                    } else if (movingRight && fingerVelocity[0] < -30) {
                         LRTapCount +=1 
                         movingLeft = true
                         movingRight = false

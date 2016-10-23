@@ -61,7 +61,7 @@ function countSingleTaps() {
                     //and then note the interval to the last tap if there has been more than one tap
                     if (fingerPosition[1]  < 0) {
                         fingerDown = true;
-                    } else if (fingerPosition[1]  > (0) && fingerDown == true) {
+                    } else if (fingerPosition[1]  > (30) && fingerDown == true) {
                         singleTapCount += 1;
                         fingerDown = false;
                         if (singleTapCount > 1) {
