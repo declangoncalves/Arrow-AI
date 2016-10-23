@@ -11,6 +11,8 @@ var messages = "";
 var expectedPosition;
 var lastPositon = null;
 
+var phase = null;
+
  var requested =  false; 
 
 var singleTapCount = 0;
@@ -37,85 +39,18 @@ var FHPCycleCount = 0;
 var FHPIntervals = [];
 
 function updateUI() {
-    document.querySelector('.sceneTitle').innerHTML = sceneTitle;
-    document.querySelector('.instructions').innerHTML = instructions;
-    document.querySelector('.singleTC').innerHTML = singleTapCount;
-    document.querySelector('.data').innerHTML = dataArray;
-    document.getElementById("time").style.display="none";
-    document.querySelector('#time').innerHTML = time;
-    document.querySelector('.handCC').innerHTML = FHPCycleCount;
-    document.querySelector('.lrTC').innerHTML = LRTapCount;
-    // document.querySelector('.ED').innerHTML = expectedDirection;
-    // document.querySelector('.ME').innerHTML = messages;
 
-    if (currentTest == 0) {
-        document.getElementById("intro").style.display="block";
-        document.getElementById("instructionFrame1").style.display="none";
-        document.getElementById("instructionFrame2").style.display="none";
-        document.getElementById("instructionFrame3").style.display="none";
-        document.getElementById("test1").style.display="none";
-        document.getElementById("test2").style.display="none";
-        document.getElementById("test3").style.display="none";
-        document.getElementById("time").style.display="none";
-    }
+    displayNoneAll();
 
-    else
-        document.getElementById("intro").style.display="none";
+    updateHeaders();
 
-    // Display current test elements
-    if (currentTest == 1 && !displayCounter) {
-        document.getElementById("test1").style.display="block";
-        document.getElementById("test2").style.display="none";
-        document.getElementById("test3").style.display="none";
-        document.getElementById("time").style.display="block";
-    }
-    if (currentTest == 2 && !displayCounter) {
-        document.getElementById("test1").style.display="none";
-        document.getElementById("test2").style.display="block";
-        document.getElementById("test3").style.display="none";
-        document.getElementById("time").style.display="block";
-    }
-    if (currentTest == 3 && !displayCounter) {
-        document.getElementById("test1").style.display="none";
-        document.getElementById("test2").style.display="none";
-        document.getElementById("test3").style.display="block";
-        document.getElementById("time").style.display="block";
-    }
+    updateDisplayVariables();
 
-    //Display frame gifs
-    
-    if (displayInstructionFrame && currentTest == 1) {
-        document.getElementById("instructionFrame1").style.display="block";
-        document.getElementById("instructionFrame2").style.display="none";
-        document.getElementById("instructionFrame3").style.display="none";
-    }
-    if (displayInstructionFrame && currentTest == 2){
-        document.getElementById("instructionFrame1").style.display="none";
-        document.getElementById("instructionFrame2").style.display="block";
-        document.getElementById("instructionFrame3").style.display="none";
-    }
-    if (displayInstructionFrame && currentTest == 3) {
-        document.getElementById("instructionFrame1").style.display="none";
-        document.getElementById("instructionFrame2").style.display="none";
-        document.getElementById("instructionFrame3").style.display="block";
-    }
+    updateTestContainers();
 
-    // Display current movement elements
-    if (currentMovement == 1) {
-        document.getElementById("movementOne").style.display="block";
-        document.getElementById("movementTwo").style.display="none";
-        document.getElementById("movementThree").style.display="none";
-    }
-    if (currentMovement == 2) {
-        document.getElementById("movementOne").style.display="none";
-        document.getElementById("movementTwo").style.display="block";
-        document.getElementById("movementThree").style.display="none";
-    }
-    if (currentMovement == 3) {
-        document.getElementById("movementOne").style.display="none";
-        document.getElementById("movementTwo").style.display="none";
-        document.getElementById("movementThree").style.display="block";
-    }
+    updateFrames();
+
+    updateMovementDisplays();
 }
 
 function countdown(){
@@ -134,14 +69,136 @@ function countdown(){
             // Display a login box     
             document.querySelector('#countdown').innerHTML = counter;
             clearInterval(interval);
-            document.getElementById("countdown").style.display="none";
             displayCounter = false;
             updateUI();
+            instructions = "";
             return true;
         }
     }, 1000);
 }
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+function updateFrames(){
+    // if (displayInstructionFrame && currentTest == 1 && phase != 3) {
+    //     document.getElementsByClassName('frame1').style.display="block";
+    // }
+    // if (displayInstructionFrame && currentTest == 2 && phase != 3){
+    //     document.getElementsByClassName('frame2').style.display="block";
+    // }
+    // if (displayInstructionFrame && currentTest == 3 && phase != 3) {
+    //     document.getElementsByClassName('frame3').style.display="block";
+    // }
+}
+
+function updateMovementDisplays() {
+    if (currentMovement == 1 && currentTest === 2 && phase == 3) {
+        document.getElementById("movementOne").style.display="block";
+    }
+    if (currentMovement == 2 && currentTest === 2 && phase == 3) {
+        document.getElementById("movementTwo").style.display="block";
+    }
+    if (currentMovement == 3 && currentTest === 2 && phase == 3) {
+        document.getElementById("movementThree").style.display="block";
+    }
+}
+
+function updateTestContainers() {
+
+    if (currentTest == 0) {
+        document.getElementById("intro").style.display="block";
+    }
+    if (currentTest == 1 && (phase == 3 || phase == 4)) {
+        document.getElementById("test1").style.display="block";
+    }
+    if (currentTest == 2 && (phase == 3 || phase == 4)) {
+        document.getElementById("test2").style.display="block";
+    }
+    if (currentTest == 3 && (phase == 3 || phase == 4)) {
+        document.getElementById("test3").style.display="block";
+    }
+}
+
+function updateDisplayVariables(){
+    document.querySelector('#sceneTitle').innerHTML = sceneTitle;
+    document.querySelector('#instructions').innerHTML = instructions;
+
+    document.querySelector('.data').innerHTML = dataArray;
+    document.querySelector('#time').innerHTML = time;
+
+    document.querySelector('.singleTC').innerHTML = singleTapCount;
+    document.querySelector('.handCC').innerHTML = FHPCycleCount;
+    document.querySelector('.lrTC').innerHTML = LRTapCount;
+}
+
+function displayNoneAll() {
+    document.getElementById("intro").style.display="none";
+    document.getElementById("test1").style.display="none";
+    document.getElementById("test2").style.display="none";
+    document.getElementById("test3").style.display="none";
+    document.getElementById("movementOne").style.display="none";
+    document.getElementById("movementTwo").style.display="none";
+    document.getElementById("movementThree").style.display="none";
+    // document.getElementsByClassName("frame1").style.display="none";
+    // document.getElementsByClassName("frame2").style.display="none";
+    // document.getElementsByClassName("frame3").style.display="none";
+    document.getElementById("instructions").style.display="none";
+    document.getElementById("countdown").style.display="none";
+}
+
+function updateHeaders(){
+    
+    if (phase == 1) {
+        document.getElementById("instructions").style.display="block";
+    }
+    if (phase == 2) {
+        document.getElementById("countdown").style.display="block";
+    }
+    if (phase == 3) {
+        document.getElementById("time").style.display="block";
+    }
+}
+
+function beginFirstTest() {
+    phase = 1;
+    currentTest = 1;
+    sceneTitle = "Single Tap";
+    instructions = "Tap your finger over the sensor at the height marked by the frame around it. Make sure your finger dips below the height of the frame when going down, and goes above it when coming back up. Do this as fast as you can in 15 second.<br /><br />Place your hand over the sensor when you are ready to begin.";
+    updateUI();
+    countSingleTaps();
+}
+
+function beginSecondTest() {
+    phase = 1;
+    currentTest = 2;
+    sceneTitle = "Fist-Hand-Palm Sequence";
+    instructions = "Instructions will be placed here";
+    updateUI();
+    countTheHandTurns();
+}
+
+function beginThirdTest() {
+    phase = 1;
+    currentTest = 3;
+    sceneTitle="Left Right Finger Tap";
+    instructions = "Test3";
+    updateUI();
+    countLeftRightTaps();
+}
+
+function beginPhaseTwo() {
+    phase = 2;
+    instructions = "Get Ready...";
+    updateUI();
+    countdown();
+    updateUI();
+    beginPhaseThree();
+}
+
+function beginPhaseThree() {
+    phase = 3;
+    updateUI();
+}
+
+function beginPhaseFour() {
+    phase = 4;
+    updateUI();
 }

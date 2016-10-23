@@ -1,42 +1,36 @@
 function countSingleTaps() {
     startTime = null;
-    displayInstructionFrame = true; 
-    currentTest = 1;
+    displayInstructionFrame = true;
     requested= false;
-    sceneTitle = "Single Tap";
-    instructions = "Tap your finger over the sensor at the height marked by the frame around it. Make sure your finger dips below the height of the frame when going down, and goes above it when coming back up. Do this as fast as you can in 15 second.<br /><br />Place your hand over the sensor when you are ready to begin.";
+
     var controller = Leap.loop(controllerOptions, function(frame) {
 
-        if ( startTime != null && time > 0) {
-            time = 18 - Math.floor((frame.timestamp - startTime)/1000000);
-        }
+    if ( startTime != null && time > 0) {
+        time = 15 - Math.floor((frame.timestamp - startTime)/1000000);
+    }
 
         //Make sure that hands are visible before the timer starts
         if (frame.hands.length == 0) {
-            messages = "No hands are visible. Please make sure your right hands is over the sensor";
+            console.log("No hands are visible. Please make sure your right hands is over the sensor");
         //Make sure that both hands are not in view
         } else if (frame.hands.length == 2) {
-            messages = "You have placed both your hands over the sensor, please remove your left hand"; 
+            console.log("You have placed both your hands over the sensor, please remove your left hand"); 
         } else {
             var hand = frame.hands[0];
             //Ensure that patient is using their right hand
             if (hand.type == "right") {  
                 //Make sure that the hand is flat
                 if (hand.pitch() < -0.10 || hand.pitch > 0.15) {
-                    messages = "Your hand is not flat. Please make sure your hand is parallel to the floor"
+                    console.log("Your hand is not flat. Please make sure your hand is parallel to the floor");
                 } else {
                     //If the start time is not set, start it
                     if (startTime == null) {
                         startTime = frame.timestamp;
-                        instructions = "Get Ready...";
-                        countdown();
+                        beginPhaseTwo();
                     }
 
-                    if (!displayCounter)
-                        instructions = "";
-
                     // Once 15 seconds have passed, return the counts and the intervals
-                    if (frame.timestamp - startTime >= 18000000) {
+                    if (frame.timestamp - startTime >= 15000000) {
                         var sum = 0;
                         for (var i = 0; i < intervals.length; i++) {
                                 sum += intervals[i];
@@ -51,8 +45,7 @@ function countSingleTaps() {
                         STINT = parseInt(avg);
                         STSTDEV = parseInt(stdev);
 
-                        updateUI();
-
+                        beginPhaseFour();
                         controller.disconnect();
                     }
 
@@ -80,7 +73,8 @@ function countSingleTaps() {
                 messages = "This test needs to be done with the right hand. Please remove your left hand and use your right hand."
             } 
         }
-        // Update the UI
-        updateUI();
+    
+    updateUI();
+    
     });
 }

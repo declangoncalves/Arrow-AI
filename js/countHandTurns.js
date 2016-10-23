@@ -2,15 +2,10 @@
     FHPSTDEV = 0;
 
 function countTheHandTurns() {
-   startTime = null;
-   displayInstructionFrame = true;
-   lastPositon = null;
-    currentTest = 2;
-    sceneTitle = "Fist-Hand-Palm Sequence";
-    instructions = "Follow the following diagrams:<br />";
+    startTime = null;
+    displayInstructionFrame = true;
+    lastPositon = null;
     time = 18;
-   
-    updateUI();
 
    positionEnum =  {
        FIST: "fist with the knuckles facing up",
@@ -21,16 +16,10 @@ function countTheHandTurns() {
     expectedPosition = positionEnum.FIST;
 
     var controller = Leap.loop(controllerOptions, function(frame) {
-        console.log('entered loop');
-        console.log("StartTime: " + startTime);
 
         if ( startTime != null && time > 0) {
             time = 18 - Math.floor((frame.timestamp - startTime)/1000000);
         }
-
-        console.log(time);
-
-        updateUI();
 
         //Make sure that hands are visible before the timer starts
         if (frame.hands.length == 0) {
@@ -45,9 +34,7 @@ function countTheHandTurns() {
                 //If the start time is not set, start it
                 if (startTime == null) {
                     startTime = frame.timestamp;
-                    instructions = "Get Ready...";
-                    console.log('get ready!');
-                    countdown();
+                    beginPhaseTwo();
                     
                 }
 

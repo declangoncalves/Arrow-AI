@@ -1,9 +1,5 @@
 function countLeftRightTaps() {
     startTime = null;
-    currentTest = 3;
-    sceneTitle="Left Right Finger Tap";
-    displayInstructionFrame = true;
-    instructions = "Test3";
     time = 0;
     requested = false;
     updateUI();
@@ -31,10 +27,9 @@ function countLeftRightTaps() {
                 } else {
                     //If the start time is not set, start it
                     if (startTime == null) {
-                        instructions = "Get Ready...";
                         if (countdown) {
                             startTime = frame.timestamp;
-                            time = 0;
+                            beginPhaseTwo();
                         }
                     }
                     // Once 15 seconds have passed, return the counts and the intervals
@@ -95,8 +90,7 @@ function countLeftRightTaps() {
                         
                         dataArray = [singleTapCount, avg, stdev];
 
-                        // Update the UI
-                        updateUI();
+                        beginPhaseFour();
 
                     }
 
