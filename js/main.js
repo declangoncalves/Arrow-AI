@@ -234,5 +234,7 @@ function displayAnalytics() {
     currentTest = -1;
     sceneTitle="Smart Analytics";
     instructions = "";
+    var p = document.querySelector("#outcome")
+    p.innerHTML = "<h3>Result: " + outcome + "</br>" + "Confidence: " + confidence + "</h3>"
     updateUI();
 }

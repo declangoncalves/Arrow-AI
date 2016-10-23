@@ -28,9 +28,6 @@ function countLeftRightTaps() {
             var hand = frame.hands[0];
             //Ensure that patient is using their right hand
             if (hand.type == "right") { 
-                 if (hand.pitch() < -0.10 || hand.pitch > 0.15) {
-                    messages = "Your hand is not flat. Please make sure your hand is parallel to the floor"
-                } else {
                     //If the start time is not set, start it
                     if (startTime == null) {
                         if (countdown) {
@@ -135,7 +132,6 @@ function countLeftRightTaps() {
                             lastTap = frame.timestamp
                         }
                     }
-                }
             }
         }
     });
