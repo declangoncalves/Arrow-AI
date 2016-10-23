@@ -230,6 +230,7 @@ function beginPhaseFour() {
 }
 
 function displayAnalytics() {
+    document.getElementById("frame3").style.display="none";
     phase = -1;
     currentTest = -1;
     sceneTitle="Smart Analytics";
@@ -237,4 +238,8 @@ function displayAnalytics() {
     var p = document.querySelector("#outcome")
     p.innerHTML = "<h3>Result: " + outcome + "</br>" + "Confidence: " + confidence + "</h3>"
     updateUI();
+}
+
+function alignToCenter(){
+    document.getElementById("svg-container").style.margin="0 auto";
 }
