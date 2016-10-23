@@ -8,7 +8,7 @@ function countTheHandTurns() {
     currentTest = 2;
     sceneTitle = "Fist-Hand-Palm Sequence";
     instructions = "Follow the following diagrams:<br />";
-    time = 15;
+    time = 18;
    
     updateUI();
 
@@ -22,13 +22,15 @@ function countTheHandTurns() {
 
     var controller = Leap.loop(controllerOptions, function(frame) {
         console.log('entered loop');
+        console.log("StartTime: " + startTime);
+
         if ( startTime != null && time > 0) {
             time = 18 - Math.floor((frame.timestamp - startTime)/1000000);
         }
+
         console.log(time);
 
         updateUI();
-        console.log('updated UI');
 
         //Make sure that hands are visible before the timer starts
         if (frame.hands.length == 0) {
@@ -47,7 +49,6 @@ function countTheHandTurns() {
                     console.log('get ready!');
                     countdown();
                     
-        console.log('finished');
                 }
 
                 if (!displayCounter)
@@ -70,7 +71,7 @@ function countTheHandTurns() {
                     FHPINT = parseInt(avg);
                     FHPSTDEV = parseInt(stdev);
                 }
-                console.log(expectedPosition);
+
                 // When waiting for the fist, look for normal vector facing down and closed fist
                 if (expectedPosition == positionEnum.FIST) {
                     if (hand.palmNormal[1] < -0.85 && hand.grabStrength == 1) {
