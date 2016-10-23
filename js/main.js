@@ -43,6 +43,7 @@ function updateUI() {
     document.querySelector('.data').innerHTML = dataArray;
     document.querySelector('.time').innerHTML = time;
     document.querySelector('.handCC').innerHTML = FHPCycleCount;
+    document.querySelector('.lrTC').innerHTML = LRTapCount;
 
     if (currentTest == 0) {
         document.getElementById("intro").style.display="block";
