@@ -31,10 +31,11 @@ function countLeftRightTaps() {
                 } else {
                     //If the start time is not set, start it
                     if (startTime == null) {
-                        startTime = frame.timestamp;
-                        time = 0;
                         instructions = "Get Ready...";
-                        countdown();
+                        if (countdown) {
+                            startTime = frame.timestamp;
+                            time = 0;
+                        }
                     }
                     // Once 15 seconds have passed, return the counts and the intervals
                     if (frame.timestamp - startTime >= 15000000) {
@@ -103,22 +104,24 @@ function countLeftRightTaps() {
                     var indexFinger = hand.indexFinger;
                     var fingerPosition = indexFinger.tipPosition;
 
-                    if (fingerPosition[0] > 45) {
+                    if (fingerPosition[0] > 30) {
                         rightZone = true;
-                    } else if (fingerPosition[0] < -45) {
+                    } else if (fingerPosition[0] < -30) {
                         leftZone = true;
                     } else {
                         rightZone = false;
                         leftZone = false;
                     }
 
+                    console.log(rightZone + " " + leftZone);
+
                     //If they are supposed to be in the right side, then monitor for taps
                     if (expectedDirection == 1 && rightZone && rightExited == false ) {
-                        if (fingerPosition[1]  < 100) {
-                            fingerDown = true;
-                        } else if (fingerPosition[1]  > 100 && fingerDown == true) {
+                        //if (fingerPosition[1]  < 105) {
+                          //  fingerDown = true;
+                     //   } else if (fingerPosition[1]  > 105 && fingerDown == true) {
                             LRTapCount += 1;
-                            fingerDown = false;
+                        //    fingerDown = false;
                             expectedDirection *= -1; 
                             if (LRTapCount > 1) {
                                 var intervalC = frame.timestamp - lastTap;
@@ -127,14 +130,14 @@ function countLeftRightTaps() {
                             } else {
                                 lastTap = frame.timestamp;
                             }
-                        }
+                     //   }
                     //If they are supposed to be on the left side, then monitor for taps
                     } else if (expectedDirection == -1 && leftZone && leftExited == false) {
-                        if (fingerPosition[1]  < 105) {
-                            fingerDown = true;
-                        } else if (fingerPosition[1]  > 105 && fingerDown == true) {
+                   //     if (fingerPosition[1]  < 105) {
+                    //        fingerDown = true;
+                    //    } else if (fingerPosition[1]  > 105 && fingerDown == true) {
                             LRTapCount += 1;
-                            fingerDown = false;
+                     //       fingerDown = false;
                             expectedDirection *= -1; 
                             if (LRTapCount > 1) {
                                 var intervalC = frame.timestamp - lastTap;
@@ -143,7 +146,7 @@ function countLeftRightTaps() {
                             } else {
                                 lastTap = frame.timestamp;
                             }
-                        }
+                    //    }
                     //If they enter the right side after they left the right side, warn them
                     } else if (expectedDirection == -1 && rightZone && rightExited == true) {
                         messages = "Taps need to alternate sides. Please tap on the left side"

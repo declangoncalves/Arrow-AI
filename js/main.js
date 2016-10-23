@@ -132,10 +132,7 @@ function countdown(){
             document.getElementById("countdown").style.display="none";
             displayCounter = false;
             updateUI();
-            singleTapCount = 0;
-            lastPositon = null;
-            expectedPosition = "fist with the knuckles facing up";
-            return;
+            return true;
         }
     }, 1000);
 }
