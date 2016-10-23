@@ -12,14 +12,14 @@ function countSingleTaps() {
             messages = "No hands are visible. Please make sure your right hands is over the sensor";
         //Make sure that both hands are not in view
         } else if (frame.hands.length == 2) {
-            messages = "You have placed both your hands over the sensor, please remove your left hands"; 
+            messages = "You have placed both your hands over the sensor, please remove your left hand"; 
         } else {
             var hand = frame.hands[0];
             //Ensure that patient is using their right hand
             if (hand.type == "right") {  
                 //Make sure that the hand is flat
                 if (hand.pitch() < -0.10 || hand.pitch > 0.15) {
-                    messages = "Your hand is not flat. Please make sure your hand it parallel to the floor"
+                    messages = "Your hand is not flat. Please make sure your hand is parallel to the floor"
                 } else {
                     //If the start time is not set, start it
                     if (startTime == null) {

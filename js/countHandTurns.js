@@ -29,7 +29,7 @@ function countTheHandTurns() {
             messages = "No hands are visible. Please make sure your right hands is over the sensor";
         //Make sure that both hands are not in view
         } else if (frame.hands.length == 2) {
-            messages = "You have placed both your hands over the sensor, please remove your left hands"; 
+            messages = "You have placed both your hands over the sensor, please remove your left hand"; 
         } else {
             var hand = frame.hands[0];
             //Ensure that patient is using their right hand
