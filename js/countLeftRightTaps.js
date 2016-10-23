@@ -103,10 +103,11 @@ function countLeftRightTaps() {
                     //Get the instance of the hand then the index finger
                     var indexFinger = hand.indexFinger;
                     var fingerPosition = indexFinger.tipPosition;
+                    fingerPosition = indexFinger.stabilizedTipPosition;
 
-                    if (fingerPosition[0] > 40) {
+                    if (fingerPosition[0] > 35) {
                         rightZone = true;
-                    } else if (fingerPosition[0] < -40) {
+                    } else if (fingerPosition[0] < -35) {
                         leftZone = true;
                     } else {
                         rightZone = false;
