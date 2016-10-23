@@ -1,7 +1,7 @@
 function countLeftRightTaps() {
     startTime = null;
     currentTest = 3;
-    sceneTitle="Side Finger Tap";
+    sceneTitle="Side-to-Side Finger Tap";
     displayInstructionFrame = true;
     instructions = "Test3";
     time = 0;
