@@ -35,11 +35,7 @@ function countTheHandTurns() {
                 if (startTime == null) {
                     startTime = frame.timestamp;
                     beginPhaseTwo();
-                    
                 }
-
-                if (!displayCounter)
-                    instructions = "";
 
                 // Once 15 seconds have passed, return the counts and the intervals
                 if (frame.timestamp - startTime >= 18000000) {
@@ -57,6 +53,7 @@ function countTheHandTurns() {
 
                     FHPINT = parseInt(avg);
                     FHPSTDEV = parseInt(stdev);
+                    beginPhaseFour();
                 }
 
                 // When waiting for the fist, look for normal vector facing down and closed fist

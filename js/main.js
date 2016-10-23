@@ -1,5 +1,7 @@
 var dataArray = [];
 
+var babyjesus = 0;
+
 var sceneTitle = "";
 var instructions = "";
 var time = 15;
@@ -141,7 +143,7 @@ function displayNoneAll() {
     // document.getElementsByClassName("frame2").style.display="none";
     // document.getElementsByClassName("frame3").style.display="none";
     document.getElementById("instructions").style.display="none";
-    document.getElementById("countdown").style.display="none";
+    // document.getElementById("countdown").style.display="none";
 }
 
 function updateHeaders(){
@@ -149,9 +151,9 @@ function updateHeaders(){
     if (phase == 1) {
         document.getElementById("instructions").style.display="block";
     }
-    if (phase == 2) {
-        document.getElementById("countdown").style.display="block";
-    }
+    // if (phase == 2) {
+    //     document.getElementById("countdown").style.display="block";
+    // }
     if (phase == 3) {
         document.getElementById("time").style.display="block";
     }
@@ -167,6 +169,9 @@ function beginFirstTest() {
 }
 
 function beginSecondTest() {
+    console.log(singleTapCount);
+    babyjesus = singleTapCount;
+    console.log(babyjesus);
     phase = 1;
     currentTest = 2;
     sceneTitle = "Fist-Hand-Palm Sequence";
@@ -176,6 +181,7 @@ function beginSecondTest() {
 }
 
 function beginThirdTest() {
+    console.log(FHPCycleCount);
     phase = 1;
     currentTest = 3;
     sceneTitle="Left Right Finger Tap";
@@ -185,10 +191,10 @@ function beginThirdTest() {
 }
 
 function beginPhaseTwo() {
+    console.log(LRTapCount);
     phase = 2;
     instructions = "Get Ready...";
     updateUI();
-    countdown();
     updateUI();
     beginPhaseThree();
 }
