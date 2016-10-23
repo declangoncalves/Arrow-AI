@@ -1,6 +1,9 @@
 function countSingleTaps() {
     startTime = null; 
-    requested= false; 
+    currentTest = 1;
+    requested= false;
+    sceneTitle = "Finger Taps";
+    instructions = "Instructions: Tap your index finger<br /><br />Place your hand over the sensor to begin";
     var controller = Leap.loop(controllerOptions, function(frame) {
 
         if ( startTime != null && time > 0) {
@@ -27,6 +30,10 @@ function countSingleTaps() {
                         instructions = "Get Ready...";
                         countdown();
                     }
+
+                    if (!displayCounter)
+                        instructions = "";
+
                     // Once 15 seconds have passed, return the counts and the intervals
                     if (frame.timestamp - startTime >= 18000000) {
                         var sum = 0;

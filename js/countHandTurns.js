@@ -2,9 +2,10 @@
 
 function countTheHandTurns() {
    startTime = null; 
-   var lastPositon = null;
+   lastPositon = null;
     currentTest = 2;
-    instructions = "Multiple Movement Modality Assessment";
+    sceneTitle = "Multiple Movement Modality Assessment";
+    instructions = "Follow the following diagrams:<br />";
     time = 0;
    
     updateUI();
@@ -15,10 +16,11 @@ function countTheHandTurns() {
        PALM: "open hand facing up"
    };
 
-    var expectedPosition = positionEnum.FIST;
+    expectedPosition = positionEnum.FIST;
 
     var controller = Leap.loop(controllerOptions, function(frame) {
 
+        updateUI()
 
         if ( startTime != null && time > 0) {
             time = 15 - Math.floor((frame.timestamp - startTime)/1000000);
@@ -40,8 +42,12 @@ function countTheHandTurns() {
                     instructions = "Get Ready...";
                     countdown();
                 }
+
+                if (!displayCounter)
+                    instructions = "";
+
                 // Once 15 seconds have passed, return the counts and the intervals
-                if (frame.timestamp - startTime >= 15000000) {
+                if (frame.timestamp - startTime >= 18000000) {
                     controller.disconnect();
                      var sum = 0;
                         for (var i = 0; i < FHPIntervals.length; i++) {
@@ -106,6 +112,7 @@ function countTheHandTurns() {
                     if (hand.palmNormal[1] < -0.85 && hand.grabStrength == 1) {
                         expectedPosition = positionEnum.HAND
                         console.log("Fist seen");
+                        currentMovement = 1;
                         if (lastPositon != null) {
                             var intervalC = frame.timestamp - lastTap;
                             FHPIntervals.push(intervalC);
@@ -120,6 +127,7 @@ function countTheHandTurns() {
                 } else if (expectedPosition == positionEnum.HAND) {
                     if (hand.palmNormal[1] < -0.85 && hand.grabStrength == 0) {
                         console.log("Hand seen");
+                        currentMovement = 2;
                         expectedPosition = positionEnum.PALM;
                         if (lastPositon != null) {
                             var intervalC = frame.timestamp - lastTap;
@@ -131,10 +139,11 @@ function countTheHandTurns() {
                     } else {
                         messages = "Waiting for open hand down. Position: " + hand.palmNormal[1] + " Grip: " + hand.grabStrength;
                     }
-                //When waitng for plam up, look for normal up, and fist open
+                //When waiting for plam up, look for normal up, and fist open
                 } else if (expectedPosition == positionEnum.PALM) {
                     if (hand.palmNormal[1] > 0.85 && hand.grabStrength == 0) {
                         console.log("Palm seen");
+                        currentMovement = 3;
                         expectedPosition = positionEnum.FIST;
                         FHPCycleCount += 1;
                         if (lastPositon != null) {

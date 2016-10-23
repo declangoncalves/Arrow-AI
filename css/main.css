@@ -21,3 +21,7 @@
 .results, .time {
 	display: inline;
 }
+
+#movementOne, #movementTwo, #movementThree {
+	display: none;
+}

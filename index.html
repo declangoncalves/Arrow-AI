@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Huntington Disease Test</title>
+    <title>ArrowAI</title>
 
     <script src="http://js.leapmotion.com/leap-0.6.3.min.js"></script>
     <script src="./js/main.js"></script>
@@ -30,7 +30,7 @@
 
 </head>
 
-<body class="main-body" onload="countSingleTaps();">
+<body class="main-body">
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -70,28 +70,41 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="main-title">
-                    <h1>HuntingTrak</h1>
+                    <h1>ArrowAI</h1>
                     <hr >
                 </div>
 
-                <h2 class="instructions"></h2>
+                <h2><div class="sceneTitle"></div></h2>
+                <h3 class="instructions"></h3>
                 <h2 id="countdown"></h2>
 
+                <div id="intro">
+                    <h2>Welcome to ArrowAI's<br />Huntingtons Disease Diagnostic Software</h2>
+                    <br />
+                    <h3>Instructions:</h3>
+                    <h4>1. Plug Leap Motion into usb port</h4>
+                    <h4>2. Follow the on-screen prompts</h4>
+                    <h4>3. View analytics and compare to average</h4>
+                    <br />
+                    <button onclick="countSingleTaps()" class="btn btn-primary">Begin Testing</button>
+                </div>
+
                 <div id="test1">
-                    <p>Test1</p>
-                    <h3 style="display: inline">Time: <div class="results"></div></h3>
-                    <h3 style="display: inline">Count: <div class="time"></div></h3>
+                    <h3 style="display: inline">Count: <div class="results"></div></h3>
+                    <h3 style="display: inline">Time: <div class="time"></div></h3>
                     <div class="data"></div>
-                    <button onclick="countTheHandTurns()">Next Test</button>
+                    <br />
+                    <button onclick="countTheHandTurns()" class="btn btn-primary">Next Test</button>
                 </div>
 
                 <div id="test2">
-                    <p>Test2</p>
-                    <button onclick="countLeftRightTaps()">Next Test</button>
+                    <p id="movementOne">One</p>
+                    <p id="movementTwo">Two</p>
+                    <p id="movementThree">Three</p>
+                    <button onclick="countLeftRightTaps()" class="btn btn-primary">Next Test</button>
                 </div>
 
                 <div id="test3">
-                    <p>Test3</p>
                 </div>
             </div>
         </div>

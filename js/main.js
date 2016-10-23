@@ -1,10 +1,14 @@
 var dataArray = [];
 
-var instructions = "Please move your hand over the leap motion sensor...";
+var sceneTitle = "";
+var instructions = "";
 var time = 15;
-var currentTest = 1;
+var currentTest = 0;
+var currentMovement = 0;
 var displayCounter = true;
 var messages = "";
+var expectedPosition;
+var lastPositon = null;
 
  var requested =  false; 
 
@@ -32,11 +36,23 @@ var FHPCycleCount = 0;
 var FHPIntervals = [];
 
 function updateUI() {
+    document.querySelector('.sceneTitle').innerHTML = sceneTitle;
     document.querySelector('.instructions').innerHTML = instructions;
     document.querySelector('.results').innerHTML = singleTapCount;
     document.querySelector('.data').innerHTML = dataArray;
     document.querySelector('.time').innerHTML = time;
-    
+
+    if (currentTest == 0) {
+        document.getElementById("intro").style.display="block";
+        document.getElementById("test1").style.display="none";
+        document.getElementById("test2").style.display="none";
+        document.getElementById("test3").style.display="none";
+    }
+
+    else {  
+        document.getElementById("intro").style.display="none";
+    }    
+    // Display current test elements
     if (currentTest == 1 && !displayCounter) {
         document.getElementById("test1").style.display="block";
         document.getElementById("test2").style.display="none";
@@ -51,6 +67,23 @@ function updateUI() {
         document.getElementById("test1").style.display="none";
         document.getElementById("test2").style.display="none";
         document.getElementById("test3").style.display="block";
+    }
+
+    // Display current movement elements
+    if (currentMovement == 1) {
+        document.getElementById("movementOne").style.display="block";
+        document.getElementById("movementTwo").style.display="none";
+        document.getElementById("movementThree").style.display="none";
+    }
+    if (currentMovement == 2) {
+        document.getElementById("movementOne").style.display="none";
+        document.getElementById("movementTwo").style.display="block";
+        document.getElementById("movementThree").style.display="none";
+    }
+    if (currentMovement == 3) {
+        document.getElementById("movementOne").style.display="none";
+        document.getElementById("movementTwo").style.display="none";
+        document.getElementById("movementThree").style.display="block";
     }
 }
 
@@ -72,7 +105,14 @@ function countdown(){
             document.getElementById("countdown").style.display="none";
             displayCounter = false;
             updateUI();
+            singleTapCount = 0;
+            lastPositon = null;
+            expectedPosition = "fist with the knuckles facing up";
             return;
         }
     }, 1000);
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
