@@ -41,11 +41,12 @@ function updateUI() {
     document.querySelector('.instructions').innerHTML = instructions;
     document.querySelector('.singleTC').innerHTML = singleTapCount;
     document.querySelector('.data').innerHTML = dataArray;
-    document.querySelector('.time').innerHTML = time;
+    document.getElementById("time").style.display="none";
+    document.querySelector('#time').innerHTML = time;
     document.querySelector('.handCC').innerHTML = FHPCycleCount;
     document.querySelector('.lrTC').innerHTML = LRTapCount;
-    document.querySelector('.ED').innerHTML = expectedDirection;
-    document.querySelector('.ME').innerHTML = messages;
+    // document.querySelector('.ED').innerHTML = expectedDirection;
+    // document.querySelector('.ME').innerHTML = messages;
 
     if (currentTest == 0) {
         document.getElementById("intro").style.display="block";
@@ -55,6 +56,7 @@ function updateUI() {
         document.getElementById("test1").style.display="none";
         document.getElementById("test2").style.display="none";
         document.getElementById("test3").style.display="none";
+        document.getElementById("time").style.display="none";
     }
 
     else
@@ -65,16 +67,19 @@ function updateUI() {
         document.getElementById("test1").style.display="block";
         document.getElementById("test2").style.display="none";
         document.getElementById("test3").style.display="none";
+        document.getElementById("time").style.display="block";
     }
     if (currentTest == 2 && !displayCounter) {
         document.getElementById("test1").style.display="none";
         document.getElementById("test2").style.display="block";
         document.getElementById("test3").style.display="none";
+        document.getElementById("time").style.display="block";
     }
     if (currentTest == 3 && !displayCounter) {
         document.getElementById("test1").style.display="none";
         document.getElementById("test2").style.display="none";
         document.getElementById("test3").style.display="block";
+        document.getElementById("time").style.display="block";
     }
 
     //Display frame gifs

@@ -27,5 +27,6 @@
 	display: inline;
 }
 
+#movementOne, #movementTwo, #movementThree, #instructionFrame1, #instructionFrame2, #instructionFrame3, #time{
 	display: none;
 }
