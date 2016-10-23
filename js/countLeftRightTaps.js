@@ -1,6 +1,9 @@
 var outcome = null;
 var confidence = null;
 
+var LRINT = null;
+var LRSTDEV = null;
+
 function countLeftRightTaps() {
     startTime = null;
     time = 15;
@@ -48,7 +51,8 @@ function countLeftRightTaps() {
                             stdev += Math.pow((LRIntervals[i] - avg),2);
                         }
                         stdev = Math.sqrt(stdev / LRIntervals.length)/1000;
-
+                        LRINT = avg;
+                        LRSTDEV = stdev;
                          var data =  {
                             "Inputs": {
                                 "input1": { 

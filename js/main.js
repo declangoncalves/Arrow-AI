@@ -237,6 +237,18 @@ function displayAnalytics() {
     instructions = "";
     var p = document.querySelector("#outcome")
     p.innerHTML = "<h3>Result: " + outcome + "</br>" + "Confidence: " + confidence + "</h3>"
+    p.innerHTML += "</br><b>Tap Data</b></br>"
+    p.innerHTML += "Count: " + babyjesus + "</br>"
+    p.innerHTML += "Count: " + STINT + "</br>"
+    p.innerHTML += "Count: " + STSTDEV + "</br>"
+    p.innerHTML += "</br><b>Fist Hand Palm Sequence</b></br>"
+    p.innerHTML += "Count: " + FHPCycleCount + "</br>"
+    p.innerHTML += "Count: " + FHPINT + "</br>"
+    p.innerHTML += "Count: " + FHPSTDEV + "</br>"
+    p.innerHTML += "</br><b>Left Right Tap Count</b></br>"
+    p.innerHTML += "Count: " + LRTapCount + "</br>"
+    p.innerHTML += "Count: " + LRINT + "</br>"
+    p.innerHTML += "Count: " + LRSTDEV + "</br>"
     updateUI();
 }
 
