@@ -80,15 +80,24 @@ function countdown(){
 }
 
 function updateFrames(){
-    // if (displayInstructionFrame && currentTest == 1 && phase != 3) {
-    //     document.getElementsByClassName('frame1').style.display="block";
-    // }
-    // if (displayInstructionFrame && currentTest == 2 && phase != 3){
-    //     document.getElementsByClassName('frame2').style.display="block";
-    // }
-    // if (displayInstructionFrame && currentTest == 3 && phase != 3) {
-    //     document.getElementsByClassName('frame3').style.display="block";
-    // }
+
+    if (document.getElementById("frame1")) {
+        if (displayInstructionFrame && currentTest == 1 && phase != 3) {
+            document.getElementById("frame1").style.display="block";
+        }
+    }
+
+    if (document.getElementById("frame2")) {
+        if (displayInstructionFrame && currentTest == 2 && phase != 3){
+            document.getElementById('frame2').style.display="block";
+        }
+    }
+    
+    if (document.getElementById("frame3")) {
+        if (displayInstructionFrame && currentTest == 3 && phase != 3) {
+            document.getElementById('frame3').style.display="block";
+        }
+    }
 }
 
 function updateMovementDisplays() {
@@ -142,13 +151,16 @@ function displayNoneAll() {
     document.getElementById("movementOne").style.display="none";
     document.getElementById("movementTwo").style.display="none";
     document.getElementById("movementThree").style.display="none";
-    // document.getElementsByClassName("frame1").style.display="none";
-    // document.getElementsByClassName("frame2").style.display="none";
-    // document.getElementsByClassName("frame3").style.display="none";
     document.getElementById("instructions").style.display="none";
     // document.getElementById("countdown").style.display="none";
     document.getElementById("time").style.display="none";
     document.getElementById("analytics").style.display="none";
+    if (document.getElementById("frame1"))
+        document.getElementById("frame1").style.display="none";
+    if (document.getElementById("frame2"))
+        document.getElementById("frame2").style.display="none";
+    if (document.getElementById("frame3"))
+        document.getElementById("frame3").style.display="none";
 }
 
 function updateHeaders(){
@@ -180,7 +192,7 @@ function beginSecondTest() {
     phase = 1;
     currentTest = 2;
     sceneTitle = "Fist-Hand-Palm Sequence";
-    instructions = "Instructions will be placed here";
+    instructions = "Make a fist over the sensor, and then open the hand, and then turn it over. Repeat this sequence as many times as you can over 15 seconds.<br /><br />Place your hand over the sensor when you are ready to begin.";
     updateUI();
     countTheHandTurns();
 }
@@ -190,7 +202,7 @@ function beginThirdTest() {
     phase = 1;
     currentTest = 3;
     sceneTitle="Left Right Finger Tap";
-    instructions = "Test3";
+    instructions = "";
     updateUI();
     countLeftRightTaps();
 }

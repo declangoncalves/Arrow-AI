@@ -57,7 +57,7 @@ hr.style:before { /* Not really supposed to work, but does */
 	display: inline;
 }
 
-#movementOne, #movementTwo, #movementThree, #instructionFrame1, #instructionFrame2, #instructionFrame3, #time, #analytics {
+#movementOne, #movementTwo, #movementThree, #instructionFrame1, #instructionFrame2, #instructionFrame3, #time, #analytics, #frame1, #frame2, #frame3{
 	display: none;
 }
 
