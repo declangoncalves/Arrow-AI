@@ -6,6 +6,7 @@ var time = 15;
 var currentTest = 0;
 var currentMovement = 0;
 var displayCounter = true;
+var displayInstructionFrame = true;
 var messages = "";
 var expectedPosition;
 var lastPositon = null;
@@ -44,6 +45,7 @@ function updateUI() {
 
     if (currentTest == 0) {
         document.getElementById("intro").style.display="block";
+        document.getElementById("instructionFrame").style.display="none";
         document.getElementById("test1").style.display="none";
         document.getElementById("test2").style.display="none";
         document.getElementById("test3").style.display="none";
@@ -51,6 +53,11 @@ function updateUI() {
 
     else {  
         document.getElementById("intro").style.display="none";
+        if (displayInstructionFrame){
+            document.getElementById("instructionFrame").style.display="block";
+        }
+        else
+            document.getElementById("instructionFrame").style.display="none";
     }    
     // Display current test elements
     if (currentTest == 1 && !displayCounter) {
@@ -89,6 +96,7 @@ function updateUI() {
 
 function countdown(){
     var counter = 3;
+    displayInstructionFrame = false;
     displayCounter = true;
     document.getElementById("countdown").style.display="block";
 

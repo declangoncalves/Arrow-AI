@@ -1,7 +1,8 @@
 
 
 function countTheHandTurns() {
-   startTime = null; 
+   startTime = null;
+   displayInstructionFrame = true;
    lastPositon = null;
     currentTest = 2;
     sceneTitle = "Multiple Movement Modality Assessment";

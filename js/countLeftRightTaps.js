@@ -1,6 +1,7 @@
 function countLeftRightTaps() {
     startTime = null;
     currentTest = 3;
+    displayInstructionFrame = true;
     instructions = "Test3";
     time = 0;
    

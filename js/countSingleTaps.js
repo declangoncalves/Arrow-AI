@@ -1,5 +1,6 @@
 function countSingleTaps() {
-    startTime = null; 
+    startTime = null;
+    displayInstructionFrame = true; 
     currentTest = 1;
     requested= false;
     sceneTitle = "Finger Taps";

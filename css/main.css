@@ -3,6 +3,11 @@
     height: 100vh;
 	color: #fff;
 	background-color: #182327;
+	padding-top: 30px;
+}
+
+.instruction-frame {
+	width: 375px;
 }
 
 .main-title {
@@ -22,6 +27,6 @@
 	display: inline;
 }
 
-#movementOne, #movementTwo, #movementThree {
+#movementOne, #movementTwo, #movementThree, #instructionFrame {
 	display: none;
 }
