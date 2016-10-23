@@ -15,8 +15,9 @@
 }
 
 .main-title h1 {
-	letter-spacing: 2px !Important;
+	letter-spacing: 0.2em !Important;
     font-size: 62px !Important;
+    color: #4ca857;
 }
 
 #test1, #test2, #test3 {
@@ -29,4 +30,41 @@
 
 #movementOne, #movementTwo, #movementThree, #instructionFrame1, #instructionFrame2, #instructionFrame3, #time{
 	display: none;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  opacity: 0.2;
+}
+
+label {
+  display: block;
+  position: relative;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 10px;
+  font: 12px monospace;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+#hint {
+  display: none;
+}
+#hint:checked + div {
+  display: block;
+  color: white;
+  font: 12px monospace;
+  padding-left: 10px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+#hint + div {
+  display: none;
 }
