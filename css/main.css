@@ -1,9 +1,35 @@
+@import url('https://fonts.googleapis.com/css?family=Oxygen');
+
+@import url('https://fonts.googleapis.com/css?family=Quattrocento');
+
+hr.style {
+    height: 30px;
+    border-style: solid;
+    border-color: #848484;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+
+hr.style:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #848484;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+
 .main-body {
     width: 100%;
     height: 100vh;
-	color: #fff;
+	color: #e2e2e2;
 	background-color: #182327;
 	padding-top: 30px;
+	font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+	font-weight: 100;
+
 }
 
 .instruction-frame {
@@ -15,9 +41,12 @@
 }
 
 .main-title h1 {
-	letter-spacing: 0.2em !Important;
-    font-size: 62px !Important;
+	letter-spacing: 0.1em !Important;
+    font-size: 80px !Important;
     color: #4ca857;
+
+	font-family: "Quattrocento", serif;
+	font-weight: 100;
 }
 
 #test1, #test2, #test3 {
