@@ -38,11 +38,11 @@
                     <hr class="style" />
                 </div>
 
-                <h2 id="sceneTitle"/>
+                <h2 id="sceneTitle"></h2>
 
-                <img id="frame1" class="instruction-frame" src="./assets/fingertap.gif"/>
-                <img id="frame2" class="instruction-frame" src="./assets/fullhand.gif"/>
-                <img id="frame3" class="instruction-frame" src="./assets/fingertap.gif"/>
+                <div><img id="frame1" class="instruction-frame" src="./assets/fingertap.gif"/></div>
+                <div><img id="frame2" class="instruction-frame" src="./assets/fullhand.gif"/></div>
+                <div><img id="frame3" class="instruction-frame" src="./assets/fingertap.gif"/></div>
                 
                 <h4 id="instructions"></h4>
                 <!--<h2 id="countdown"></h2>-->
@@ -62,14 +62,14 @@
                 </div>
 
                 <div id="test1">
-                    <h3>Count: <div class="singleTC"></div></h3>
+                    <h3>Count: <span class="singleTC"></span></h3>
                     <div class="data"></div>
                     <br />
                     <button onclick="beginSecondTest()" class="btn btn-primary">Next Test</button>
                 </div>
 
                 <div id="test2">
-                    <h3>Count: <div class="handCC"></div></h3>
+                    <h3>Count: <span class="handCC"></span></h3>
                     <div id="movementOne">PALM DOWN</div>
                     <p id="movementTwo">PALM UP</p>
                     <p id="movementThree">FIST</p>
@@ -78,7 +78,7 @@
                 </div>
 
                 <div id="test3">
-                    <h3>Count: <div class="lrTC"></div></h3>
+                    <h3>Count: <span class="lrTC"></span></h3>
                     <br />
                     <button onclick="displayAnalytics()" class="btn btn-primary">View Analytics</button>
                 </div>

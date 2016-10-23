@@ -42,11 +42,11 @@ hr.style:before { /* Not really supposed to work, but does */
 
 .main-title h1 {
 	letter-spacing: 0.1em !Important;
-    font-size: 80px !Important;
+    font-size: 70px !Important;
     color: #4ca857;
 
 	font-family: "Quattrocento", serif;
-	font-weight: 100;
+	font-weight: 400;
 }
 
 #test1, #test2, #test3 {
@@ -57,7 +57,7 @@ hr.style:before { /* Not really supposed to work, but does */
 	display: inline;
 }
 
-#movementOne, #movementTwo, #movementThree, #instructionFrame1, #instructionFrame2, #instructionFrame3, #time, #analytics, #frame1, #frame2, #frame3{
+#movementOne, #movementTwo, #movementThree, #instructionFrame1, #instructionFrame2, #instructionFrame3, #time, #analytics {
 	display: none;
 }
 
@@ -100,4 +100,33 @@ label {
 
 .intro-note {
 	margin-top: 24px;
+}
+
+.instruction-frame {
+	display: none;
+    width: 312px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#sceneTitle {
+	margin-top: -25px !important;
+    margin-bottom: 20px;
+}
+
+#intro h4 {
+    font-weight: 400;
+}
+
+.singleTC, .handCC, .lrTC {
+	display: inline;
+}
+
+#time {
+	font-size: 34px;
+    color: dodgerblue;
+}
+
+#test1 h3 {
+	margin-top: 10px;
 }

@@ -81,23 +81,20 @@ function countdown(){
 
 function updateFrames(){
 
-    if (document.getElementById("frame1")) {
-        if (displayInstructionFrame && currentTest == 1 && phase != 3) {
-            document.getElementById("frame1").style.display="block";
-        }
-    }
-
-    if (document.getElementById("frame2")) {
-        if (displayInstructionFrame && currentTest == 2 && phase != 3){
-            document.getElementById('frame2').style.display="block";
-        }
-    }
+        // if (displayInstructionFrame && currentTest == 1 && phase != 3) {
+        //     document.getElementById("frame1").style.display="block";
+        // }
     
-    if (document.getElementById("frame3")) {
-        if (displayInstructionFrame && currentTest == 3 && phase != 3) {
-            document.getElementById('frame3').style.display="block";
-        }
-    }
+
+        // if (displayInstructionFrame && currentTest == 2 && phase != 3){
+        //     document.getElementById('frame2').style.display="block";
+        // }
+    
+    
+        // if (displayInstructionFrame && currentTest == 3 && phase != 3) {
+        //     document.getElementById('frame3').style.display="block";
+        // }
+    
 }
 
 function updateMovementDisplays() {
@@ -155,12 +152,9 @@ function displayNoneAll() {
     // document.getElementById("countdown").style.display="none";
     document.getElementById("time").style.display="none";
     document.getElementById("analytics").style.display="none";
-    if (document.getElementById("frame1"))
-        document.getElementById("frame1").style.display="none";
-    if (document.getElementById("frame2"))
-        document.getElementById("frame2").style.display="none";
-    if (document.getElementById("frame3"))
-        document.getElementById("frame3").style.display="none";
+    // document.getElementById("frame1").style.display="none";
+    // document.getElementById("frame2").style.display="none";
+    // document.getElementById("frame3").style.display="none";
 }
 
 function updateHeaders(){
@@ -177,6 +171,9 @@ function updateHeaders(){
 }
 
 function beginFirstTest() {
+    document.getElementById("frame1").style.display="block";
+    document.getElementById("frame2").style.display="none";
+    document.getElementById("frame3").style.display="none";
     phase = 1;
     currentTest = 1;
     sceneTitle = "Single Tap";
@@ -186,6 +183,9 @@ function beginFirstTest() {
 }
 
 function beginSecondTest() {
+    document.getElementById("frame1").style.display="none";
+    document.getElementById("frame2").style.display="block";
+    document.getElementById("frame3").style.display="none";
     console.log(singleTapCount);
     babyjesus = singleTapCount;
     console.log(babyjesus);
@@ -198,11 +198,14 @@ function beginSecondTest() {
 }
 
 function beginThirdTest() {
+    document.getElementById("frame1").style.display="none";
+    document.getElementById("frame2").style.display="none";
+    document.getElementById("frame3").style.display="block";
     console.log(FHPCycleCount);
     phase = 1;
     currentTest = 3;
     sceneTitle="Left Right Finger Tap";
-    instructions = "";
+    instructions = "Move your fingers from side to side while keeping your hand steady. Do this over the sensor as many times as you can in 15 seconds.";
     updateUI();
     countLeftRightTaps();
 }
