@@ -1,4 +1,5 @@
-
+    FHPINT = 0;
+    FHPSTDEV = 0;
 
 function countTheHandTurns() {
    startTime = null;
@@ -50,62 +51,19 @@ function countTheHandTurns() {
                 // Once 15 seconds have passed, return the counts and the intervals
                 if (frame.timestamp - startTime >= 18000000) {
                     controller.disconnect();
-                     var sum = 0;
-                        for (var i = 0; i < FHPIntervals.length; i++) {
-                                sum += FHPIntervals[i];
-                        }
-                        var avg = sum/FHPIntervals.length/1000;
-                        var stdev = 0
-                        for (var i = 0; i < FHPIntervals.length; i++) {
-                            stdev += Math.pow((FHPIntervals[i] - avg),2);
-                        }
-                        stdev = Math.sqrt(stdev / FHPIntervals.length)/1000;
-                        var data =  {
-                            "Inputs": {
-                                "input1": { 
-                                    "ColumnNames": ["TAPS, STINT, STSTDEV, CYCLES", "FHPINT", "FHPSTDEV", "HAS?"],
-                                    "Values": [[singleTapCount, STINT, STSTDEV, FHPCycleCount, parseInt(avg), parseInt(stdev), "FALSE"]]
-                                },        
-                            },
-                            "GlobalParameters": {}
-                        }
+                    var sum = 0;
+                    for (var i = 0; i < FHPIntervals.length; i++) {
+                            sum += FHPIntervals[i];
+                    }
+                    var avg = sum/FHPIntervals.length/1000;
+                    var stdev = 0
+                    for (var i = 0; i < FHPIntervals.length; i++) {
+                        stdev += Math.pow((FHPIntervals[i] - avg),2);
+                    }
+                    stdev = Math.sqrt(stdev / FHPIntervals.length)/1000;
 
-                       
-
-                        var jsonString = JSON.stringify(data);
-                        console.log(jsonString);
-                        var url = 'https://ussouthcentral.services.azureml.net/workspaces/17a78a4991f6486bb00235017a0ce7ce/services/eee5dc459eb241d49db7cb8248ad14e1/execute?api-version=2.0&details=true'
-                        var api_key = '856o3Y+Yo+F8T8yhpLPHdN/uWPy6HfrqxBNNnIJjLQu5UB5Re8uQG2Rk6p8Hp7BrJjP8YDXr94c0KQ0a/F/HDQ==' 
-                        var header1 = ['Content-Type', 'Authorization']
-                        var header2 = ['application/json', ('Bearer '+ api_key)]
-
-                        var http = new XMLHttpRequest();
-
-                        http.onload = function () {
-                            var status = http.status;
-                            var data = http.responseText;
-                           
-                            console.log(data);
-                            http.abort();
-                            
-                        }
-
-                        http.open("POST", url, true);
-
-                        //Send the proper header information along with the request
-                        http.setRequestHeader("Content-Type", "application/json");
-                        http.setRequestHeader("Authorization", 'Bearer ' + api_key);
-
-                        if (requested == false) {
-                            http.send(jsonString);
-                            requested = true;
-                        }
-                        
-                        
-                        dataArray = [singleTapCount, avg, stdev];
-
-                        // Update the UI
-                        updateUI();
+                    FHPINT = parseInt(avg);
+                    FHPSTDEV = parseInt(stdev);
                 }
                 console.log(expectedPosition);
                 // When waiting for the fist, look for normal vector facing down and closed fist

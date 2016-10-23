@@ -4,7 +4,7 @@ function countLeftRightTaps() {
     displayInstructionFrame = true;
     instructions = "Test3";
     time = 0;
-   
+    requested = false;
     updateUI();
 
     Leap.loop(controllerOptions, function(frame) {
@@ -36,7 +36,65 @@ function countLeftRightTaps() {
                     }
                     // Once 15 seconds have passed, return the counts and the intervals
                     if (frame.timestamp - startTime >= 15000000) {
-                        console.log('Taps: ' + LRTapCount);
+                        controller.disconnect();
+                        var sum = 0;
+                        for (var i = 0; i < LRIntervals.length; i++) {
+                                sum += LRIntervals[i];
+                        }
+                        var avg = sum/LRIntervals.length/1000;
+                        var stdev = 0
+                        for (var i = 0; i < LRIntervals.length; i++) {
+                            stdev += Math.pow((LRIntervals[i] - avg),2);
+                        }
+                        stdev = Math.sqrt(stdev / LRIntervals.length)/1000;
+
+                         var data =  {
+                            "Inputs": {
+                                "input1": { 
+                                    "ColumnNames": ["TAPS, STINT, STSTDEV, CYCLES", "FHPINT", "FHPSTDEV", "LRCOUNT", "LRINT", "LRSTDEV", "HAS?"],
+                                    "Values": [[singleTapCount, STINT, STSTDEV, FHPCycleCount, FHPINT, FHPSTDEV, LRTapCount, parseInt(avg), parseInt(stdev), "FALSE"]]
+                                },        
+                            },
+                            "GlobalParameters": {}
+                        }
+
+                       
+
+                        var jsonString = JSON.stringify(data);
+                        console.log(jsonString);
+                        var url = 'https://ussouthcentral.services.azureml.net/workspaces/17a78a4991f6486bb00235017a0ce7ce/services/eee5dc459eb241d49db7cb8248ad14e1/execute?api-version=2.0&details=true'
+                        var api_key = '856o3Y+Yo+F8T8yhpLPHdN/uWPy6HfrqxBNNnIJjLQu5UB5Re8uQG2Rk6p8Hp7BrJjP8YDXr94c0KQ0a/F/HDQ==' 
+                        var header1 = ['Content-Type', 'Authorization']
+                        var header2 = ['application/json', ('Bearer '+ api_key)]
+
+                        var http = new XMLHttpRequest();
+
+                        http.onload = function () {
+                            var status = http.status;
+                            var data = http.responseText;
+                           
+                            console.log(data);
+                            http.abort();
+                            
+                        }
+
+                        http.open("POST", url, true);
+
+                        //Send the proper header information along with the request
+                        http.setRequestHeader("Content-Type", "application/json");
+                        http.setRequestHeader("Authorization", 'Bearer ' + api_key);
+
+                        if (requested == false) {
+                            http.send(jsonString);
+                            requested = true;
+                        }
+                        
+                        
+                        dataArray = [singleTapCount, avg, stdev];
+
+                        // Update the UI
+                        updateUI();
+
                     }
 
                     //Get the instance of the hand then the index finger
@@ -62,7 +120,7 @@ function countLeftRightTaps() {
                             expectedDirection *= -1; 
                             if (LRTapCount > 1) {
                                 var intervalC = frame.timestamp - lastTap;
-                                intervals.push(intervalC);
+                                LRIntervals.push(intervalC);
                                 lastTap = frame.timestamp;
                             } else {
                                 lastTap = frame.timestamp;
@@ -70,15 +128,15 @@ function countLeftRightTaps() {
                         }
                     //If they are supposed to be on the left side, then monitor for taps
                     } else if (expectedDirection == -1 && leftZone && leftExited == false) {
-                        if (fingerPosition[1]  < 100) {
+                        if (fingerPosition[1]  < 105) {
                             fingerDown = true;
-                        } else if (fingerPosition[1]  > 100 && fingerDown == true) {
+                        } else if (fingerPosition[1]  > 105 && fingerDown == true) {
                             LRTapCount += 1;
                             fingerDown = false;
                             expectedDirection *= -1; 
                             if (LRTapCount > 1) {
                                 var intervalC = frame.timestamp - lastTap;
-                                intervals.push(intervalC);
+                                LRIntervals.push(intervalC);
                                 lastTap = frame.timestamp;
                             } else {
                                 lastTap = frame.timestamp;
