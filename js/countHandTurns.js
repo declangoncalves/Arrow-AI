@@ -8,7 +8,7 @@ function countTheHandTurns() {
     currentTest = 2;
     sceneTitle = "Multiple Movement Modality Assessment";
     instructions = "Follow the following diagrams:<br />";
-    time = 0;
+    time = 15;
    
     updateUI();
 
@@ -22,11 +22,11 @@ function countTheHandTurns() {
 
     var controller = Leap.loop(controllerOptions, function(frame) {
 
-        updateUI()
-
         if ( startTime != null && time > 0) {
-            time = 15 - Math.floor((frame.timestamp - startTime)/1000000);
+            time = 18 - Math.floor((frame.timestamp - startTime)/1000000);
         }
+
+        updateUI();
 
         //Make sure that hands are visible before the timer starts
         if (frame.hands.length == 0) {

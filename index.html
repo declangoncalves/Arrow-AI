@@ -37,23 +37,23 @@
                 </div>
 
                 <h2><div class="sceneTitle"></div></h2>
-                <div id="instructionFrame"><img class="instruction-frame" src="./assets/fingertap.gif" /></div>
-                <h3 class="instructions"></h3>
+                <div id="instructionFrame"><img id="instruction-frame" src="./assets/fingertap.gif" autoplay/></div>
+                <h4 class="instructions"></h4>
                 <h2 id="countdown"></h2>
 
                 <div id="intro">
-                    <h2>Welcome to ArrowAI's<br />Huntingtons Disease Diagnostic Software</h2>
+                    <h3><span>What is ArrowAI?</span><span>What is Huntington’s Disease?</span><span>What does this tool do?</span></h3>
                     <br />
                     <h3>Instructions:</h3>
-                    <h4>1. Plug Leap Motion into usb port</h4>
-                    <h4>2. Follow the on-screen prompts</h4>
-                    <h4>3. View analytics and compare to average</h4>
+                    <h4>1. Plug in your LeapMotion sensor</h4>
+                    <h4>2. Click the start test button below</h4>
+                    <h4>3. Follow the instructions for each test</h4>
                     <br />
                     <button onclick="countSingleTaps()" class="btn btn-primary">Begin Testing</button>
                 </div>
 
                 <div id="test1">
-                    <h3 style="display: inline">Count: <div class="results"></div></h3>
+                    <h3 style="display: inline">Count: <div class="singleTC"></div></h3>
                     <h3 style="display: inline">Time: <div class="time"></div></h3>
                     <div class="data"></div>
                     <br />
@@ -61,6 +61,8 @@
                 </div>
 
                 <div id="test2">
+                    <h3 style="display: inline">Count: <div class="handCC"></div></h3>
+                    <h3 style="display: inline">Time: <div class="time"></div></h3>
                     <div id="movementOne"></div>
                     <p id="movementTwo">Two</p>
                     <p id="movementThree">Three</p>

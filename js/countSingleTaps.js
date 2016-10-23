@@ -4,7 +4,7 @@ function countSingleTaps() {
     currentTest = 1;
     requested= false;
     sceneTitle = "Finger Taps";
-    instructions = "Instructions: Tap your index finger<br /><br />Place your hand over the sensor to begin";
+    instructions = "Tap your finger over the sensor at the height marked by the frame around it. Make sure your finger dips below the height of the frame when going down, and goes above it when coming back up. Do this as fast as you can in 15 second.<br /><br />Place your hand over the sensor when you are ready to begin.";
     var controller = Leap.loop(controllerOptions, function(frame) {
 
         if ( startTime != null && time > 0) {

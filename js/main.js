@@ -39,9 +39,10 @@ var FHPIntervals = [];
 function updateUI() {
     document.querySelector('.sceneTitle').innerHTML = sceneTitle;
     document.querySelector('.instructions').innerHTML = instructions;
-    document.querySelector('.results').innerHTML = singleTapCount;
+    document.querySelector('.singleTC').innerHTML = singleTapCount;
     document.querySelector('.data').innerHTML = dataArray;
     document.querySelector('.time').innerHTML = time;
+    document.querySelector('.handCC').innerHTML = FHPCycleCount;
 
     if (currentTest == 0) {
         document.getElementById("intro").style.display="block";
@@ -66,6 +67,7 @@ function updateUI() {
         document.getElementById("test3").style.display="none";
     }
     if (currentTest == 2 && !displayCounter) {
+        document.getElementById("instruction-frame").src="./assets/fullhand.gif";
         document.getElementById("test1").style.display="none";
         document.getElementById("test2").style.display="block";
         document.getElementById("test3").style.display="none";
