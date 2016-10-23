@@ -117,6 +117,9 @@ function updateTestContainers() {
     if (currentTest == 3 && (phase == 3 || phase == 4)) {
         document.getElementById("test3").style.display="block";
     }
+    if (currentTest == -1 && phase == -1) {
+        document.getElementById("analytics").style.display="block";
+    }
 }
 
 function updateDisplayVariables(){
@@ -144,6 +147,8 @@ function displayNoneAll() {
     // document.getElementsByClassName("frame3").style.display="none";
     document.getElementById("instructions").style.display="none";
     // document.getElementById("countdown").style.display="none";
+    document.getElementById("time").style.display="none";
+    document.getElementById("analytics").style.display="none";
 }
 
 function updateHeaders(){
@@ -206,5 +211,13 @@ function beginPhaseThree() {
 
 function beginPhaseFour() {
     phase = 4;
+    updateUI();
+}
+
+function displayAnalytics() {
+    phase = -1;
+    currentTest = -1;
+    sceneTitle="Smart Analytics";
+    instructions = "";
     updateUI();
 }

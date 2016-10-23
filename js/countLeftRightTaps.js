@@ -1,6 +1,6 @@
 function countLeftRightTaps() {
     startTime = null;
-    time = 0;
+    time = 15;
     requested = false;
     updateUI();
 

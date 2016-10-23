@@ -47,14 +47,16 @@
                 <h3 id="time"></h3>
 
                 <div id="intro">
-                    <h3><span>What is Arrow A.I.? </span><span>What is Huntington’s Disease? </span><span>What does this tool do?</span></h3>
-                    <br />
+                    <h2><span>Huntingtons Disease Diagnostic Assistant Tool</span></h2>
                     <h3>Instructions:</h3>
                     <h4>1. Plug in your LeapMotion sensor</h4>
                     <h4>2. Click the start test button below</h4>
                     <h4>3. Follow the instructions for each test</h4>
                     <br /> 
                     <button onclick="beginFirstTest()" class="btn btn-primary">Begin Testing</button>
+                    <br />
+                    <p class="intro-note">Note: This test is not definitvely diagnostic, but rather is to help people catch their symptoms early so that they can seek help when it will be most beneficial. This is not a substitute for assessment by a health care professional.</p>
+                    
                 </div>
 
                 <div id="test1">
@@ -66,15 +68,22 @@
 
                 <div id="test2">
                     <h3>Count: <div class="handCC"></div></h3>
-                    <div id="movementOne"></div>
-                    <p id="movementTwo">Two</p>
-                    <p id="movementThree">Three</p>
+                    <div id="movementOne">PALM DOWN</div>
+                    <p id="movementTwo">PALM UP</p>
+                    <p id="movementThree">FIST</p>
+                    <br />
                     <button onclick="beginThirdTest()" class="btn btn-primary">Next Test</button>
                 </div>
 
                 <div id="test3">
                     <h3>Count: <div class="lrTC"></div></h3>
+                    <br />
+                    <button onclick="displayAnalytics()" class="btn btn-primary">View Analytics</button>
                 </div>
+
+                <div id="analytics">
+                    <p>BOOYA</p>
+                <div>
             </div>
         </div>
         <!-- /.row -->

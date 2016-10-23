@@ -57,7 +57,7 @@ hr.style:before { /* Not really supposed to work, but does */
 	display: inline;
 }
 
-#movementOne, #movementTwo, #movementThree, #instructionFrame1, #instructionFrame2, #instructionFrame3, #time{
+#movementOne, #movementTwo, #movementThree, #instructionFrame1, #instructionFrame2, #instructionFrame3, #time, #analytics {
 	display: none;
 }
 
@@ -96,4 +96,8 @@ label {
 }
 #hint + div {
   display: none;
+}
+
+.intro-note {
+	margin-top: 24px;
 }

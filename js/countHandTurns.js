@@ -5,7 +5,7 @@ function countTheHandTurns() {
     startTime = null;
     displayInstructionFrame = true;
     lastPositon = null;
-    time = 18;
+    time = 15;
 
    positionEnum =  {
        FIST: "fist with the knuckles facing up",
@@ -18,7 +18,7 @@ function countTheHandTurns() {
     var controller = Leap.loop(controllerOptions, function(frame) {
 
         if ( startTime != null && time > 0) {
-            time = 18 - Math.floor((frame.timestamp - startTime)/1000000);
+            time = 15 - Math.floor((frame.timestamp - startTime)/1000000);
         }
 
         //Make sure that hands are visible before the timer starts
@@ -38,7 +38,7 @@ function countTheHandTurns() {
                 }
 
                 // Once 15 seconds have passed, return the counts and the intervals
-                if (frame.timestamp - startTime >= 18000000) {
+                if (frame.timestamp - startTime >= 15000000) {
                     controller.disconnect();
                     var sum = 0;
                     for (var i = 0; i < FHPIntervals.length; i++) {
