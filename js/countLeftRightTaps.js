@@ -1,3 +1,6 @@
+var outcome = null;
+var confidence = null;
+
 function countLeftRightTaps() {
     startTime = null;
     time = 15;
@@ -72,7 +75,11 @@ function countLeftRightTaps() {
                             var status = http.status;
                             var data = http.responseText;
                            
-                            console.log(data);
+                            var result = JSON.parse(data);
+                            outcome = result.Results.output1.value.Values[0][10];
+                            confidence = result.Results.output1.value.Values[0][11];
+                            console.log(outcome)
+                            console.log(confidence)
                             http.abort();
                             
                         }
