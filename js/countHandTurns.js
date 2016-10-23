@@ -65,12 +65,10 @@ function countTheHandTurns() {
                     FHPINT = parseInt(avg);
                     FHPSTDEV = parseInt(stdev);
                 }
-                console.log(expectedPosition);
                 // When waiting for the fist, look for normal vector facing down and closed fist
                 if (expectedPosition == positionEnum.FIST) {
                     if (hand.palmNormal[1] < -0.85 && hand.grabStrength == 1) {
                         expectedPosition = positionEnum.HAND
-                        console.log("Fist seen");
                         currentMovement = 1;
                         if (lastPositon != null) {
                             var intervalC = frame.timestamp - lastTap;
@@ -85,7 +83,6 @@ function countTheHandTurns() {
                 //When waiting for palm down, look for normal down and fist open
                 } else if (expectedPosition == positionEnum.HAND) {
                     if (hand.palmNormal[1] < -0.85 && hand.grabStrength == 0) {
-                        console.log("Hand seen");
                         currentMovement = 2;
                         expectedPosition = positionEnum.PALM;
                         if (lastPositon != null) {
@@ -101,7 +98,6 @@ function countTheHandTurns() {
                 //When waiting for plam up, look for normal up, and fist open
                 } else if (expectedPosition == positionEnum.PALM) {
                     if (hand.palmNormal[1] > 0.85 && hand.grabStrength == 0) {
-                        console.log("Palm seen");
                         currentMovement = 3;
                         expectedPosition = positionEnum.FIST;
                         FHPCycleCount += 1;
