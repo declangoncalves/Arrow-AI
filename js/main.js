@@ -44,23 +44,22 @@ function updateUI() {
     document.querySelector('.time').innerHTML = time;
     document.querySelector('.handCC').innerHTML = FHPCycleCount;
     document.querySelector('.lrTC').innerHTML = LRTapCount;
+    document.querySelector('.ED').innerHTML = expectedDirection;
+    document.querySelector('.ME').innerHTML = messages;
 
     if (currentTest == 0) {
         document.getElementById("intro").style.display="block";
-        document.getElementById("instructionFrame").style.display="none";
+        document.getElementById("instructionFrame1").style.display="none";
+        document.getElementById("instructionFrame2").style.display="none";
+        document.getElementById("instructionFrame3").style.display="none";
         document.getElementById("test1").style.display="none";
         document.getElementById("test2").style.display="none";
         document.getElementById("test3").style.display="none";
     }
 
-    else {  
+    else
         document.getElementById("intro").style.display="none";
-        if (displayInstructionFrame){
-            document.getElementById("instructionFrame").style.display="block";
-        }
-        else
-            document.getElementById("instructionFrame").style.display="none";
-    }    
+
     // Display current test elements
     if (currentTest == 1 && !displayCounter) {
         document.getElementById("test1").style.display="block";
@@ -68,7 +67,6 @@ function updateUI() {
         document.getElementById("test3").style.display="none";
     }
     if (currentTest == 2 && !displayCounter) {
-        document.getElementById("instruction-frame").src="./assets/fullhand.gif";
         document.getElementById("test1").style.display="none";
         document.getElementById("test2").style.display="block";
         document.getElementById("test3").style.display="none";
@@ -77,6 +75,24 @@ function updateUI() {
         document.getElementById("test1").style.display="none";
         document.getElementById("test2").style.display="none";
         document.getElementById("test3").style.display="block";
+    }
+
+    //Display frame gifs
+    
+    if (displayInstructionFrame && currentTest == 1) {
+        document.getElementById("instructionFrame1").style.display="block";
+        document.getElementById("instructionFrame2").style.display="none";
+        document.getElementById("instructionFrame3").style.display="none";
+    }
+    if (displayInstructionFrame && currentTest == 2){
+        document.getElementById("instructionFrame1").style.display="none";
+        document.getElementById("instructionFrame2").style.display="block";
+        document.getElementById("instructionFrame3").style.display="none";
+    }
+    if (displayInstructionFrame && currentTest == 3) {
+        document.getElementById("instructionFrame1").style.display="none";
+        document.getElementById("instructionFrame2").style.display="none";
+        document.getElementById("instructionFrame3").style.display="block";
     }
 
     // Display current movement elements

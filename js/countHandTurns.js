@@ -6,7 +6,7 @@ function countTheHandTurns() {
    displayInstructionFrame = true;
    lastPositon = null;
     currentTest = 2;
-    sceneTitle = "Multiple Movement Modality Assessment";
+    sceneTitle = "Fist-Hand-Palm Sequence";
     instructions = "Follow the following diagrams:<br />";
     time = 15;
    
@@ -21,12 +21,14 @@ function countTheHandTurns() {
     expectedPosition = positionEnum.FIST;
 
     var controller = Leap.loop(controllerOptions, function(frame) {
-
+        console.log('entered loop');
         if ( startTime != null && time > 0) {
             time = 18 - Math.floor((frame.timestamp - startTime)/1000000);
         }
+        console.log(time);
 
         updateUI();
+        console.log('updated UI');
 
         //Make sure that hands are visible before the timer starts
         if (frame.hands.length == 0) {
@@ -42,7 +44,10 @@ function countTheHandTurns() {
                 if (startTime == null) {
                     startTime = frame.timestamp;
                     instructions = "Get Ready...";
+                    console.log('get ready!');
                     countdown();
+                    
+        console.log('finished');
                 }
 
                 if (!displayCounter)

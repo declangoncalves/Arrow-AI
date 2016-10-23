@@ -1,7 +1,7 @@
 function countLeftRightTaps() {
     startTime = null;
     currentTest = 3;
-    sceneTitle="Side-to-Side Finger Tap";
+    sceneTitle="Left Right Finger Tap";
     displayInstructionFrame = true;
     instructions = "Test3";
     time = 0;
@@ -15,6 +15,7 @@ function countLeftRightTaps() {
             time = 15 - Math.floor((frame.timestamp - startTime)/1000000);
         }
 
+    updateUI();
         //Make sure that hands are visible before the timer starts
         if (frame.hands.length == 0) {
             messages = "No hands are visible. Please make sure your right hands is over the sensor";

@@ -27,6 +27,6 @@
 	display: inline;
 }
 
-#movementOne, #movementTwo, #movementThree, #instructionFrame {
+#movementOne, #movementTwo, #movementThree, #instructionFrame1, #instructionFrame2, #instructionFrame3 {
 	display: none;
 }
