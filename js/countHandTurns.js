@@ -68,7 +68,7 @@ function countTheHandTurns() {
                 }
                 // When waiting for the fist, look for normal vector facing down and closed fist
                 if (expectedPosition == positionEnum.FIST) {
-                    if (hand.palmNormal[1] < -0.85 && hand.grabStrength == 1) {
+                    if (hand.palmNormal[1] < -0.80 && hand.grabStrength > 0.90) {
                         expectedPosition = positionEnum.HAND
                         currentMovement = 1;
                         if (lastPositon != null) {
@@ -83,7 +83,7 @@ function countTheHandTurns() {
                     }
                 //When waiting for palm down, look for normal down and fist open
                 } else if (expectedPosition == positionEnum.HAND) {
-                    if (hand.palmNormal[1] < -0.85 && hand.grabStrength == 0) {
+                    if (hand.palmNormal[1] < -0.80 && hand.grabStrength < 0.2) {
                         currentMovement = 2;
                         expectedPosition = positionEnum.PALM;
                         if (lastPositon != null) {
@@ -98,7 +98,7 @@ function countTheHandTurns() {
                     }
                 //When waiting for plam up, look for normal up, and fist open
                 } else if (expectedPosition == positionEnum.PALM) {
-                    if (hand.palmNormal[1] > 0.85 && hand.grabStrength == 0) {
+                    if (hand.palmNormal[1] > 0.80 && hand.grabStrength < 0.2) {
                         currentMovement = 3;
                         expectedPosition = positionEnum.FIST;
                         FHPCycleCount += 1;

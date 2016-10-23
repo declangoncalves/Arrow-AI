@@ -53,7 +53,7 @@ function countLeftRightTaps() {
                          var data =  {
                             "Inputs": {
                                 "input1": { 
-                                    "ColumnNames": ["TAPS, STINT, STSTDEV, CYCLES", "FHPINT", "FHPSTDEV", "LRCOUNT", "LRINT", "LRSTDEV", "HAS?"],
+                                    "ColumnNames": ["TAPS" , "STINT", "STSTDEV", "CYCLES", "FHPINT", "FHPSTDEV", "LRCOUNT", "LRINT", "LRSTDEV", "HAS?"],
                                     "Values": [[singleTapCount, STINT, STSTDEV, FHPCycleCount, FHPINT, FHPSTDEV, LRTapCount, parseInt(avg), parseInt(stdev), "FALSE"]]
                                 },        
                             },
@@ -103,9 +103,9 @@ function countLeftRightTaps() {
                     var indexFinger = hand.indexFinger;
                     var fingerPosition = indexFinger.tipPosition;
 
-                    if (fingerPosition[0] > 30) {
+                    if (fingerPosition[0] > 40) {
                         rightZone = true;
-                    } else if (fingerPosition[0] < -30) {
+                    } else if (fingerPosition[0] < -40) {
                         leftZone = true;
                     } else {
                         rightZone = false;
