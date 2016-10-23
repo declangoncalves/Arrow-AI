@@ -7,7 +7,7 @@ function countLeftRightTaps() {
     requested = false;
     updateUI();
 
-    Leap.loop(controllerOptions, function(frame) {
+    var controller = Leap.loop(controllerOptions, function(frame) {
 
 
         if ( startTime != null && time > 0) {
@@ -153,7 +153,7 @@ function countLeftRightTaps() {
                         rightExited = true;
                         leftExited = false; 
                     //When they leave the left side, make sure to note that they left the left side
-                    } else if (ightZone == false && leftZone == false && expectedDirection == 1) {
+                    } else if (rightZone == false && leftZone == false && expectedDirection == 1) {
                         rightExited = false;
                         leftExited = true; 
                     }
