@@ -30,10 +30,11 @@ function countLeftRightTaps() {
                 } else {
                     //If the start time is not set, start it
                     if (startTime == null) {
-                        startTime = frame.timestamp;
-                        time = 0;
                         instructions = "Get Ready...";
-                        countdown();
+                        if (countdown) {
+                            startTime = frame.timestamp;
+                            time = 0;
+                        }
                     }
                     // Once 15 seconds have passed, return the counts and the intervals
                     if (frame.timestamp - startTime >= 15000000) {

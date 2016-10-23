@@ -40,9 +40,10 @@ function countTheHandTurns() {
             if (hand.type == "right") { 
                 //If the start time is not set, start it
                 if (startTime == null) {
-                    startTime = frame.timestamp;
                     instructions = "Get Ready...";
-                    countdown();
+                    if (countdown) {
+                        startTime = frame.timestamp;
+                    }
                 }
 
                 if (!displayCounter)
