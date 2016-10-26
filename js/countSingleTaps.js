@@ -77,8 +77,6 @@ function countSingleTaps() {
                 messages = "This test needs to be done with the right hand. Please remove your left hand and use your right hand."
             } 
         }
-    
     updateUI();
-    
     });
 }
