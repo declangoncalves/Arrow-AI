@@ -1,4 +1,4 @@
-# ArrowAI
+![ScreenShot](https://github.com/declan1397/Arrow-AI/blob/master/cover.jpg)
 
 [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/)
 
